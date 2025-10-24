@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef99d8bbcd7d6542af3631b1fb2c7d7, type: 3}
+  m_Name: StoryEvent TheEnd
+  m_EditorClassIdentifier: 
+  eventPicture: {fileID: 21300012, guid: 2fd4f40ec38beee4289b2a32b1b007ca, type: 3}
+  title: The End
+  textContent: The End

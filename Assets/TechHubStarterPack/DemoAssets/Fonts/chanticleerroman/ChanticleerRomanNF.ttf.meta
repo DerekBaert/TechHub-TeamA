@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 8295b8b3321a0254da12b1eba4393b52
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Chanticleer Roman NF
+  fontNames:
+  - Chanticleer Roman NF
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 35bfe0687c9c2c44ba2e93b425baf33b, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

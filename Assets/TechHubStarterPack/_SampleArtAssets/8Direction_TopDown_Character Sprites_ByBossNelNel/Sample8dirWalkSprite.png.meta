@@ -1,0 +1,1896 @@
+fileFormatVersion: 2
+guid: 4f7d68a1ef045b44cace8201c9cc89aa
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 36
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 290
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2931d9797cf5068489aef1353e3b3af5
+      internalID: 423069694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_1
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 290
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64836654cc61e334c94ea1666b913905
+      internalID: -212201800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_2
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 290
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8acc7651c3508e4f8a7fcb3a3f323f4
+      internalID: -1070873441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_3
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 290
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed4bb9b0581e6e44f8b0477954c831bf
+      internalID: 570339213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_4
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 290
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32fc2db85411180429866ca088b6a713
+      internalID: -525192608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_5
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 290
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea38306b88d44f5468d5e7cbcb6bf438
+      internalID: 204793084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_6
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 290
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf1cd8162e487b84b9c4620c505379a7
+      internalID: 7993791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_7
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 290
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b918e0a4510ca8438fa72c93a4ac297
+      internalID: 691308733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_8
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 290
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34635e16bf53cb94299bebe3c1a5f65a
+      internalID: -1445873158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 254
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fadf61d1cb03a945867feae2d6f9a59
+      internalID: -1150530836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_10
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 254
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c943ab8bfbe3aef41a8b4c259f7fdd2e
+      internalID: -228050201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_11
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 254
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5706bac9c0277a4d9d99af448ef4e87
+      internalID: 628672392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_12
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 254
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efb67013539abda4caf9b35888bf3ba1
+      internalID: -1972316969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_13
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 254
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d1acdf5eb4d0394e9e3a0e156346ea3
+      internalID: 1322094984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_14
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 254
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa424f796416d5043b823b41325a6405
+      internalID: 1445011849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_15
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 254
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c4f97be317ab7449819117d65f731d9
+      internalID: 1685906747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_16
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 254
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f60f48e7c708c54b9d72e97d03bc357
+      internalID: 235613547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_17
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 254
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7af867ffdfdcb0a48b10817e827bfda0
+      internalID: -468870570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 218
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb5eefe49b3da1240a6251a85631880c
+      internalID: -137856717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_19
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 218
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17c8aad6e16e82943bedabc57657562f
+      internalID: 849859075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_20
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 218
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82efd5689d076ea4598bd1a2e95e7aa3
+      internalID: -656955530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_21
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 218
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2acbf9d5e77210f4598255954444d322
+      internalID: -1480634967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_22
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 218
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58cbadb62a9e5d845b1c20598583464e
+      internalID: -905713070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_23
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 218
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a79293a7e7ee2c74f9db4b227db0367e
+      internalID: 829552688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_24
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 218
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 933a3c4443d80fc4d992e530f2a6008a
+      internalID: -233366481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_25
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 218
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77cea7f56175f8f499865b13f0021c89
+      internalID: 866182511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_26
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 218
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 990e0e792bf5ce943aa7b26cd408bc27
+      internalID: -542639163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 182
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92838ed478fac8b44aac753d4d6af1af
+      internalID: -2028340446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_28
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 182
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ed36d0c38a156e43a3069d328641a97
+      internalID: -1024013881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_29
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 182
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61345f365eabb384c80001c5d515aa52
+      internalID: 1298634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_30
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 182
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db2b1f94518e6a5489766d1e498b9e94
+      internalID: 726069408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_31
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 182
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88e7fe84fcc51f345bcf0c649696f84d
+      internalID: 717197855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_32
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 182
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffcf36eded514374fa7f8bf90de609cf
+      internalID: 205008766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_33
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 182
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c7920843bc19aa48af306369b52da0d
+      internalID: 1610420832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_34
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 182
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d0c6d96d85599e4b91219ab2067687d
+      internalID: -1984504525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_35
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 182
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c7531c8079027f4590eebb582c77cf7
+      internalID: -1814582514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 146
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45e69e4be9fe1ef478d331b53e6f9e8e
+      internalID: 454177266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_37
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 146
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab86cb84c0880674dae67036e6e35d21
+      internalID: -191062623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_38
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 146
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23ea35fd4d8083543b8d2806a023d3d8
+      internalID: -45129861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_39
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 146
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04cc93d89e7f7e140bbc5f47b0699468
+      internalID: 182793962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_40
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 146
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7fd6bbcf0a46ca46a76206e729a9237
+      internalID: -1939959489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_41
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 146
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a251411999d7474c8f4b86be8ebd9d5
+      internalID: -1606125558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_42
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 146
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d02ba217d041d94eb97a087f19278f4
+      internalID: -240322667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_43
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 146
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 402c1c2c27bd784488583022731c27a5
+      internalID: 796286585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_44
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 146
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3ca8288830e6a14abe369a0607650f0
+      internalID: 1487623085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 110
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1879f2cf6f0a7ae4ea0f778bc8085f4a
+      internalID: 12696657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_46
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 110
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6c8a7956fe549e489cd5243ef520c0e
+      internalID: -256757786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_47
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 110
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3e6289f0ec5cc246878e907dde0286b
+      internalID: -1727716198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_48
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 110
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32d74a30deb7a5447a3655349e7d32a0
+      internalID: -1016055768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_49
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 110
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e970d0d3867e220458a0bd5a04c8d8cd
+      internalID: 1620974647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_50
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 110
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df6888e6de500c3418a13bd7132f8f19
+      internalID: 1050816976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_51
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 110
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89c1753e7636b1841a463dea9babb835
+      internalID: -996651149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_52
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 110
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2933eb5d8bcea5748a1e96232ae11b3f
+      internalID: 728715448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_53
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 110
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aa6b150aa73780499c29a5fac8ecfc4
+      internalID: -63461249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_54
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 74
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de3577ec2ef77ee45abe3ea6776265be
+      internalID: 58595765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_55
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 74
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dd07ed122213f54cb060ff8d210f678
+      internalID: -188244461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_56
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 74
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e9c745754d630f43ae7a7220e5a5440
+      internalID: 1918242106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_57
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 74
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4525c15116d9dd643a8319397fe03fc7
+      internalID: 2105994285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_58
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 74
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e184c21527e1eb4418532e7f2691248c
+      internalID: -78670013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_59
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 74
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 772de5f40202cd64882ddcb3fef1d67b
+      internalID: -2023202796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_60
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 74
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dfc4100d78c38a4e9f1b6248275acb0
+      internalID: 855018541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_61
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 74
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d13f788a3998cc94ba0e7d8f7e855409
+      internalID: 1639423314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_62
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 74
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a83a765e2f3d82e45993ff0d2fc8c705
+      internalID: 1288583699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_63
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 38
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72bad59dd9bad1a42bfc20c36b5cc98d
+      internalID: -719036454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_64
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 38
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4392dd9da9cc1684ba02f399bbdd342c
+      internalID: 1040840210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_65
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 38
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 990d8da7f2680a246b8fb0795d2ea8a6
+      internalID: 172279057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_66
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 38
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5609d6f16716a4f438117b1f3ab3e341
+      internalID: -1566598805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_67
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 38
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2f5855f71bfe36448bb4526df26c843
+      internalID: 933437991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_68
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 38
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f87737ab5e100db43b086f2bc2fd5691
+      internalID: -1467315179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_69
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 38
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7dd232ee8d2e79448863facdceaadc8
+      internalID: 1786298984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_70
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 38
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bd9cdf422bb18a4f95d313d71e7bf20
+      internalID: -905619264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_71
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 38
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d563a73736e6e64a93881e74c8b6177
+      internalID: -102935660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_72
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e88fc301f52f9ee409a561f9bff9f323
+      internalID: 968102650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_73
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 2
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0ac0b35106898e45815508a149d3caf
+      internalID: -1677247603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_74
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 2
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c518d39e2a9cc684694d7698be731ae4
+      internalID: 1506711371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_75
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 2
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea31f505ac9cdcc45ac8321bfaa5d4d1
+      internalID: 847983898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_76
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 2
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efc64b341832eff4b82154627f064597
+      internalID: 2146811271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_77
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 2
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d580de98cf3d6f14081d7026d8d39d6b
+      internalID: -1058159872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_78
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 2
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae85270fdad07054087133a1192ce6da
+      internalID: 414008374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_79
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 2
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 306bceba1fb1eb4478f03f6029bcbf07
+      internalID: -901293545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sample8dirWalkSprite_80
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 2
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c70504a714fc31c4c9d886f332063f88
+      internalID: 1035262610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Sample8dirWalkSprite_0: 423069694
+      Sample8dirWalkSprite_1: -212201800
+      Sample8dirWalkSprite_10: -228050201
+      Sample8dirWalkSprite_11: 628672392
+      Sample8dirWalkSprite_12: -1972316969
+      Sample8dirWalkSprite_13: 1322094984
+      Sample8dirWalkSprite_14: 1445011849
+      Sample8dirWalkSprite_15: 1685906747
+      Sample8dirWalkSprite_16: 235613547
+      Sample8dirWalkSprite_17: -468870570
+      Sample8dirWalkSprite_18: -137856717
+      Sample8dirWalkSprite_19: 849859075
+      Sample8dirWalkSprite_2: -1070873441
+      Sample8dirWalkSprite_20: -656955530
+      Sample8dirWalkSprite_21: -1480634967
+      Sample8dirWalkSprite_22: -905713070
+      Sample8dirWalkSprite_23: 829552688
+      Sample8dirWalkSprite_24: -233366481
+      Sample8dirWalkSprite_25: 866182511
+      Sample8dirWalkSprite_26: -542639163
+      Sample8dirWalkSprite_27: -2028340446
+      Sample8dirWalkSprite_28: -1024013881
+      Sample8dirWalkSprite_29: 1298634
+      Sample8dirWalkSprite_3: 570339213
+      Sample8dirWalkSprite_30: 726069408
+      Sample8dirWalkSprite_31: 717197855
+      Sample8dirWalkSprite_32: 205008766
+      Sample8dirWalkSprite_33: 1610420832
+      Sample8dirWalkSprite_34: -1984504525
+      Sample8dirWalkSprite_35: -1814582514
+      Sample8dirWalkSprite_36: 454177266
+      Sample8dirWalkSprite_37: -191062623
+      Sample8dirWalkSprite_38: -45129861
+      Sample8dirWalkSprite_39: 182793962
+      Sample8dirWalkSprite_4: -525192608
+      Sample8dirWalkSprite_40: -1939959489
+      Sample8dirWalkSprite_41: -1606125558
+      Sample8dirWalkSprite_42: -240322667
+      Sample8dirWalkSprite_43: 796286585
+      Sample8dirWalkSprite_44: 1487623085
+      Sample8dirWalkSprite_45: 12696657
+      Sample8dirWalkSprite_46: -256757786
+      Sample8dirWalkSprite_47: -1727716198
+      Sample8dirWalkSprite_48: -1016055768
+      Sample8dirWalkSprite_49: 1620974647
+      Sample8dirWalkSprite_5: 204793084
+      Sample8dirWalkSprite_50: 1050816976
+      Sample8dirWalkSprite_51: -996651149
+      Sample8dirWalkSprite_52: 728715448
+      Sample8dirWalkSprite_53: -63461249
+      Sample8dirWalkSprite_54: 58595765
+      Sample8dirWalkSprite_55: -188244461
+      Sample8dirWalkSprite_56: 1918242106
+      Sample8dirWalkSprite_57: 2105994285
+      Sample8dirWalkSprite_58: -78670013
+      Sample8dirWalkSprite_59: -2023202796
+      Sample8dirWalkSprite_6: 7993791
+      Sample8dirWalkSprite_60: 855018541
+      Sample8dirWalkSprite_61: 1639423314
+      Sample8dirWalkSprite_62: 1288583699
+      Sample8dirWalkSprite_63: -719036454
+      Sample8dirWalkSprite_64: 1040840210
+      Sample8dirWalkSprite_65: 172279057
+      Sample8dirWalkSprite_66: -1566598805
+      Sample8dirWalkSprite_67: 933437991
+      Sample8dirWalkSprite_68: -1467315179
+      Sample8dirWalkSprite_69: 1786298984
+      Sample8dirWalkSprite_7: 691308733
+      Sample8dirWalkSprite_70: -905619264
+      Sample8dirWalkSprite_71: -102935660
+      Sample8dirWalkSprite_72: 968102650
+      Sample8dirWalkSprite_73: -1677247603
+      Sample8dirWalkSprite_74: 1506711371
+      Sample8dirWalkSprite_75: 847983898
+      Sample8dirWalkSprite_76: 2146811271
+      Sample8dirWalkSprite_77: -1058159872
+      Sample8dirWalkSprite_78: 414008374
+      Sample8dirWalkSprite_79: -901293545
+      Sample8dirWalkSprite_8: -1445873158
+      Sample8dirWalkSprite_80: 1035262610
+      Sample8dirWalkSprite_9: -1150530836
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
