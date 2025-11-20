@@ -461,6 +461,7 @@ MonoBehaviour:
   slowDownFactor: 0.5
   slowDownDuration: 2
   isAlive: 1
+  horizontalPadding: 0.1
 --- !u!212 &1982821736
 SpriteRenderer:
   m_ObjectHideFlags: 0
