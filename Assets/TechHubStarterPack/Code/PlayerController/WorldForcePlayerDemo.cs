@@ -25,6 +25,16 @@ public class WorldForcePlayerDemo : MonoBehaviour
 
     public bool IsAlive => isAlive; // Public property to check player state
 
+    [Header("Screen bounds")]
+    [SerializeField] private float horizontalPadding = 0.1f; // world units from edge
+    private float minX;
+    private float maxX;
+
+    private void Awake()
+    {
+        rigid = GetComponent<Rigidbody2D>();
+    }
+
     // Add this new method to handle collisions
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -56,6 +66,34 @@ public class WorldForcePlayerDemo : MonoBehaviour
         // Prevent falling:
         rigid.gravityScale = 0f; // option A: disable gravity
         // rigid.constraints = RigidbodyConstraints2D.FreezePositionY; // option B: freeze Y position instead
+
+        // compute horizontal world bounds from main camera
+        Camera cam = Camera.main;
+        if (cam != null)
+        {
+            float zDist = Mathf.Abs(cam.transform.position.z - transform.position.z);
+            Vector3 leftWorld = cam.ViewportToWorldPoint(new Vector3(0f, 0.5f, zDist));
+            Vector3 rightWorld = cam.ViewportToWorldPoint(new Vector3(1f, 0.5f, zDist));
+
+            // account for sprite/collider half width so the player doesn't clip off-screen
+            float halfWidth = 0f;
+            var sr = GetComponent<SpriteRenderer>();
+            if (sr != null) halfWidth = sr.bounds.extents.x;
+            else
+            {
+                var col = GetComponent<Collider2D>();
+                if (col != null) halfWidth = col.bounds.extents.x;
+            }
+
+            minX = leftWorld.x + horizontalPadding + halfWidth;
+            maxX = rightWorld.x - horizontalPadding - halfWidth;
+        }
+        else
+        {
+            // fallback wide bounds if Camera.main missing
+            minX = -100f;
+            maxX = 100f;
+        }
     }
 
     // Update is called once per frame
@@ -72,7 +110,12 @@ public class WorldForcePlayerDemo : MonoBehaviour
         // Get horizontal input (e.g., A/D keys or Left/Right arrow keys)
         float horizontalInput = xInput;
 
-        // Set horizontal velocity, keep vertical locked at 0 so the player won't fall
+        // set horizontal velocity (use correct property)
         rigid.linearVelocity = new Vector2(horizontalInput * forceAmount, 0f);
+
+        // clamp position to camera bounds
+        Vector2 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, minX, maxX);
+        transform.position = pos; // simpler than MovePosition
     }
 }

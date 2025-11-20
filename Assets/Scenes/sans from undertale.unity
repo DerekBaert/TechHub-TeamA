@@ -136,7 +136,6 @@ GameObject:
   - component: {fileID: 1766381961}
   - component: {fileID: 1766381960}
   - component: {fileID: 1766381959}
-  - component: {fileID: 1766381958}
   m_Layer: 0
   m_Name: HomeBase
   m_TagString: HomeBase
@@ -144,20 +143,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1766381958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1766381957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71131fa80e2b114cb14ffd430d34368, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthBarUI
-  referencedHealth: {fileID: 0}
-  healthSliderUI: {fileID: 0}
 --- !u!61 &1766381959
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -188,7 +173,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -682,6 +667,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 311053815636422375, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
+      propertyPath: moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3752960514866186402, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -726,29 +715,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawnable
       objectReference: {fileID: 0}
-    - target: {fileID: 4369728635989337617, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
-      propertyPath: m_TagString
-      value: TrashObstacle
-      objectReference: {fileID: 0}
-    - target: {fileID: 6321145712086565824, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
-      propertyPath: m_TagString
-      value: TrashObstacle
-      objectReference: {fileID: 0}
-    - target: {fileID: 6584915942416920191, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7.61
-      objectReference: {fileID: 0}
-    - target: {fileID: 7692395038121922061, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
+    - target: {fileID: 5675884088586442297, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
       propertyPath: moveSpeed
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7840185709618120301, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
-      propertyPath: m_GravityScale
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8361109387480584946, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
