@@ -29,6 +29,8 @@ public class WorldForcePlayerDemo : MonoBehaviour
     [SerializeField] private float horizontalPadding = 0.1f; // world units from edge
     private float minX;
     private float maxX;
+    private float minY;
+    private float maxY;
 
     private void Awake()
     {
@@ -67,32 +69,47 @@ public class WorldForcePlayerDemo : MonoBehaviour
         rigid.gravityScale = 0f; // option A: disable gravity
         // rigid.constraints = RigidbodyConstraints2D.FreezePositionY; // option B: freeze Y position instead
 
-        // compute horizontal world bounds from main camera
+        // compute horizontal and vertical world bounds from main camera
         Camera cam = Camera.main;
         if (cam != null)
         {
             float zDist = Mathf.Abs(cam.transform.position.z - transform.position.z);
             Vector3 leftWorld = cam.ViewportToWorldPoint(new Vector3(0f, 0.5f, zDist));
             Vector3 rightWorld = cam.ViewportToWorldPoint(new Vector3(1f, 0.5f, zDist));
+            Vector3 bottomWorld = cam.ViewportToWorldPoint(new Vector3(0.5f, 0f, zDist));
+            Vector3 topWorld = cam.ViewportToWorldPoint(new Vector3(0.5f, 1f, zDist));
 
-            // account for sprite/collider half width so the player doesn't clip off-screen
+            // account for sprite/collider half extents so the player doesn't clip off-screen
             float halfWidth = 0f;
+            float halfHeight = 0f;
             var sr = GetComponent<SpriteRenderer>();
-            if (sr != null) halfWidth = sr.bounds.extents.x;
+            if (sr != null)
+            {
+                halfWidth = sr.bounds.extents.x;
+                halfHeight = sr.bounds.extents.y;
+            }
             else
             {
                 var col = GetComponent<Collider2D>();
-                if (col != null) halfWidth = col.bounds.extents.x;
+                if (col != null)
+                {
+                    halfWidth = col.bounds.extents.x;
+                    halfHeight = col.bounds.extents.y;
+                }
             }
 
             minX = leftWorld.x + horizontalPadding + halfWidth;
             maxX = rightWorld.x - horizontalPadding - halfWidth;
+            minY = bottomWorld.y + horizontalPadding + halfHeight;
+            maxY = topWorld.y - horizontalPadding - halfHeight;
         }
         else
         {
             // fallback wide bounds if Camera.main missing
             minX = -100f;
             maxX = 100f;
+            minY = -100f;
+            maxY = 100f;
         }
     }
 
@@ -106,16 +123,17 @@ public class WorldForcePlayerDemo : MonoBehaviour
     // Physics Update: Provide Forces in this loop instead. 
     void FixedUpdate() 
     {
-        // Movement
-        // Get horizontal input (e.g., A/D keys or Left/Right arrow keys)
+        // Movement - now supports left/right AND up/down
         float horizontalInput = xInput;
+        float verticalInput = yInput;
 
-        // set horizontal velocity (use correct property)
-        rigid.linearVelocity = new Vector2(horizontalInput * forceAmount, 0f);
+        // set velocity (use correct property)
+        rigid.linearVelocity = new Vector2(horizontalInput * forceAmount, verticalInput * forceAmount);
 
-        // clamp position to camera bounds
+        // clamp position to camera bounds on both axes
         Vector2 pos = transform.position;
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
-        transform.position = pos; // simpler than MovePosition
+        pos.y = Mathf.Clamp(pos.y, minY, maxY);
+        transform.position = pos; // apply clamped position
     }
 }
