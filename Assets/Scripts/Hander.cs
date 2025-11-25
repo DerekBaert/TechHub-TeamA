@@ -11,7 +11,7 @@ public class Hander : MonoBehaviour
 
     // Optional top cutoff if you ever need it
     [SerializeField]
-    private float cutOffTop = 30f;
+    private float cutOffTop = 25f;
 
     [Header("HomeBase impact")]
     [SerializeField] private int damageAmount = 1;
@@ -20,31 +20,55 @@ public class Hander : MonoBehaviour
     private Transform homeTransform;
     private bool hasDamaged = false;
 
+    // NEW: current travel direction and outbound flag
+    private Vector3 currentDirection;
+    private bool isOutbound = false;
+
     void Start()
     {
         var home = GameObject.FindGameObjectWithTag(homeBaseTag);
         if (home != null) homeTransform = home.transform;
         else Debug.LogWarning($"Hander: No object with tag '{homeBaseTag}' found. Falling back to downward movement.");
+
+        // initialize direction toward home if available, otherwise down
+        if (homeTransform != null)
+            currentDirection = (homeTransform.position - transform.position).normalized;
+        else
+            currentDirection = Vector3.down;
     }
 
     void Update()
     {
-        // Move toward HomeBase if found, otherwise move straight down
-        if (homeTransform != null)
+        // If not outbound and home exists, keep targeting home (handles moving home if it moves)
+        if (!isOutbound && homeTransform != null)
         {
-            Vector3 dir = (homeTransform.position - transform.position).normalized;
-            transform.position += dir * moveSpeed * Time.deltaTime;
-        }
-        else
-        {
-            transform.position += Vector3.down * moveSpeed * Time.deltaTime;
+            currentDirection = (homeTransform.position - transform.position).normalized;
         }
 
-        // Failsafe: destroy if it gets too far below the scene
-        if (transform.position.y <= cutOffBottom)
+        transform.position += currentDirection * moveSpeed * Time.deltaTime;
+
+        // existing bottom cutoff cleanup (keep)
+        if (transform.position.y <= -30f) // or use your cutOffBottom variable
         {
             Destroy(gameObject);
         }
+    }
+
+    // NEW: called by Melee to send this trash outward (away from HomeBase)
+    public void SendOutward(float speedMultiplier = 1f)
+    {
+        if (homeTransform != null)
+        {
+            currentDirection = (transform.position - homeTransform.position).normalized; // away from home
+        }
+        else
+        {
+            // fallback: outward is up
+            currentDirection = Vector3.up;
+        }
+
+        moveSpeed *= speedMultiplier;
+        isOutbound = true;
     }
 
     // Use trigger collisions to detect contact with HomeBase.
@@ -54,13 +78,9 @@ public class Hander : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (hasDamaged) return;
-
         if (other.CompareTag(homeBaseTag))
         {
-            // Try to notify HomeBase to take damage. Use SendMessage as a tolerant fallback.
             other.gameObject.SendMessage("TakeDamage", damageAmount, SendMessageOptions.DontRequireReceiver);
-            other.gameObject.SendMessage("health", damageAmount, SendMessageOptions.DontRequireReceiver);
-
             hasDamaged = true;
             Destroy(gameObject);
         }
