@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TechHub.Health;
 
 public class Trap : MonoBehaviour {
 
@@ -32,7 +33,7 @@ public class Trap : MonoBehaviour {
         if (collidedHealth != null){
 
             // Send a HitTrap method call to the health that collided with it
-            collidedHealth.TakeDamage(damage);
+            //collidedHealth.TakeDamage(damage);
 
             // Check trap settings 
             if( disableOnHit ){

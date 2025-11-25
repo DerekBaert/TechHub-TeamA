@@ -1,27 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// Required for the Slider
 using UnityEngine.UI;
+using TechHub.Health;
 
-public class HealthBarUI : MonoBehaviour {
+namespace TechHub.Health
+{
+    public class HealthBarUI : MonoBehaviour
+    {
+        // The Health component instance to read from (assign in Inspector)
+        public Health referencedHealth;
 
-    // The health script to reference
-    public Health referencedHealth;
+        // The UI slider to update (assign in Inspector)
+        public Slider healthSliderUI;
 
-    // the slider that shows the health
-    public Slider healthSliderUI;
+        void Start()
+        {
+            if (referencedHealth == null || healthSliderUI == null)
+            {
+                Debug.LogWarning("HealthBarUI: referencedHealth or healthSliderUI not assigned.");
+                return;
+            }
 
-	// Use this for initialization
-	void Start () {
-        healthSliderUI.maxValue = referencedHealth.maxHealth;
-        healthSliderUI.value = referencedHealth.currentHealth;
+            healthSliderUI.maxValue = referencedHealth.GetMaxHealth();
+            healthSliderUI.value = referencedHealth.GetCurrentHealth();
+        }
 
+        void Update()
+        {
+            if (referencedHealth == null || healthSliderUI == null) return;
+            healthSliderUI.value = referencedHealth.GetCurrentHealth();
+        }
     }
-	
-	// Update is called once per frame
-	void Update () {
-        // check the health and update the slider every frame
-        healthSliderUI.value = referencedHealth.currentHealth;
-	}
 }
