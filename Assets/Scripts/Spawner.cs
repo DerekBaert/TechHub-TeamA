@@ -3,56 +3,111 @@ using UnityEngine;
 // This class is responsible for spawning a specified item at timed intervals.
 public class Spawner : MonoBehaviour
 {
-    // [SerializeField] makes this private field visible in the Inspector.
-    // It's a best practice for providing editor access while maintaining encapsulation.
-    [SerializeField]
-    private GameObject itemToSpawn;
+    public enum SpawnMode
+    {
+        AtSpawner,
+        AnywhereInView,
+        OnViewEdgesAroundCamera
+    }
 
-    // Use a range for spawning items to add variety.
-    [SerializeField]
-    private float minSpawnInterval = 1f;
+    [SerializeField] private GameObject itemToSpawn;
+    [SerializeField] private SpawnMode spawnMode = SpawnMode.AnywhereInView;
 
-    [SerializeField]
-    private float maxSpawnInterval = 3f;
-
-    // A private float to count down to the next spawn event.
-    // Initialized to 0 so the first item can spawn immediately.
+    [Header("Timing")]
+    [SerializeField] private float minSpawnInterval = 1f;
+    [SerializeField] private float maxSpawnInterval = 3f;
     private float _timeTillNextSpawn = 0f;
 
-    // Optional: Add a reference to check the player's status, just like the obstacle spawner.
-    // This makes the spawner smarter and more game-aware.
-    // [SerializeField] allows us to drag and drop the PlayerController in the Inspector.
-    [SerializeField]
-    private PlayerController player;
+    [Header("Optional player gating")]
+    [SerializeField] private PlayerController player;
 
-    // Update is called once per frame. This is where the core spawning logic runs.
+    [Header("Viewport spawn settings")]
+    [Tooltip("Padding inside the viewport (0..0.5). 0 = full viewport, 0.1 = avoid 10% from each edge.")]
+    [Range(0f, 0.45f)] [SerializeField] private float viewportPadding = 0.05f;
+
+    [Tooltip("When spawning on edges, how far outside the viewport to place the spawn (world units)")]
+    [SerializeField] private float edgeSpawnOffset = 1f;
+
+    [Tooltip("Randomize spawned rotation")]
+    [SerializeField] private bool randomizeRotation = false;
+
     void Update()
     {
-        // Check if the timer has run out. If you have a player, also check if they're alive.
-        // We use a null check for 'player' to make this optional.
-        bool shouldSpawn = _timeTillNextSpawn <= 0;
-        if (player != null)
-        {
-            shouldSpawn = shouldSpawn && player.IsAlive;
-        }
+        bool shouldSpawn = _timeTillNextSpawn <= 0f;
+        if (player != null) shouldSpawn = shouldSpawn && player.IsAlive;
 
-        if (shouldSpawn)
+        if (!shouldSpawn)
         {
-            // Calculate the next spawn time.
-            float nextSpawn = Random.Range(minSpawnInterval, maxSpawnInterval);
-
-            // Spawn the object at the spawner's position and rotation.
-            // Using `transform.position` and `transform.rotation` is clean.
-            Instantiate(itemToSpawn, transform.position, transform.rotation);
-
-            // Reset the timer for the next spawn cycle.
-            _timeTillNextSpawn = nextSpawn;
-        }
-        else
-        {
-            // If the timer is still running, decrement it by the time passed since the last frame.
             _timeTillNextSpawn -= Time.deltaTime;
+            return;
         }
+
+        SpawnOne();
+        _timeTillNextSpawn = Random.Range(minSpawnInterval, maxSpawnInterval);
+    }
+
+    private void SpawnOne()
+    {
+        if (itemToSpawn == null)
+        {
+            Debug.LogWarning("Spawner: itemToSpawn is null.");
+            return;
+        }
+
+        Vector3 spawnPos = transform.position;
+        Quaternion spawnRot = transform.rotation;
+
+        Camera cam = Camera.main;
+        if (spawnMode == SpawnMode.AtSpawner || cam == null)
+        {
+            // keep transform.position (fallback if no camera)
+            spawnPos = transform.position;
+        }
+        else if (spawnMode == SpawnMode.AnywhereInView)
+        {
+            // pick a random point inside the camera viewport, respecting padding
+            float minV = viewportPadding;
+            float maxV = 1f - viewportPadding;
+            float vx = Random.Range(minV, maxV);
+            float vy = Random.Range(minV, maxV);
+
+            float zDist = Mathf.Abs(cam.transform.position.z - transform.position.z);
+            spawnPos = cam.ViewportToWorldPoint(new Vector3(vx, vy, zDist));
+        }
+        else if (spawnMode == SpawnMode.OnViewEdgesAroundCamera)
+        {
+            // choose a random side and a coordinate along that side, spawn just outside viewport
+            int side = Random.Range(0, 4); // 0=left,1=right,2=bottom,3=top
+            float along = Random.Range(viewportPadding, 1f - viewportPadding);
+            float zDist = Mathf.Abs(cam.transform.position.z - transform.position.z);
+
+            switch (side)
+            {
+                case 0: // left
+                    spawnPos = cam.ViewportToWorldPoint(new Vector3(0f - 0.001f, along, zDist));
+                    spawnPos.x -= edgeSpawnOffset;
+                    break;
+                case 1: // right
+                    spawnPos = cam.ViewportToWorldPoint(new Vector3(1f + 0.001f, along, zDist));
+                    spawnPos.x += edgeSpawnOffset;
+                    break;
+                case 2: // bottom
+                    spawnPos = cam.ViewportToWorldPoint(new Vector3(along, 0f - 0.001f, zDist));
+                    spawnPos.y -= edgeSpawnOffset;
+                    break;
+                case 3: // top
+                    spawnPos = cam.ViewportToWorldPoint(new Vector3(along, 1f + 0.001f, zDist));
+                    spawnPos.y += edgeSpawnOffset;
+                    break;
+            }
+        }
+
+        if (randomizeRotation)
+        {
+            spawnRot = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+        }
+
+        Instantiate(itemToSpawn, spawnPos, spawnRot);
     }
 }
 
