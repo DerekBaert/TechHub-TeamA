@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class WorldForcePlayerDemo : MonoBehaviour
 {
-    [SerializeField] // This will allow us to see our private variables, without being able to access them. 
-    private float xInput = 0;
-    [SerializeField]
-    private float yInput = 0;
+    // Removed per-axis input fields (mouse-driven)
+    private Vector2 _mouseWorldTarget;
 
     // Physics Settings
-    public float forceAmount = 10f;
+    public float forceAmount = 10f; // used as movement speed (units/sec)
     public float slowDownFactor = 0.5f; // Factor to reduce speed
     public float slowDownDuration = 2f; // Duration of slowdown
 
     // Physics References
-    // Note: I used Private here as we don't want people assigning this value in the editor, 
-    //      We will grab the reference with code in the Start Method
     private Rigidbody2D rigid;
 
     // Add these new fields
@@ -62,12 +58,11 @@ public class WorldForcePlayerDemo : MonoBehaviour
     // Start is called before the first frame update
     void Start() 
     {
-        // This is get a reference to the local Rigidbody
-        rigid = GetComponent<Rigidbody2D>();
+        // ensure rigid reference
+        if (rigid == null) rigid = GetComponent<Rigidbody2D>();
 
         // Prevent falling:
-        rigid.gravityScale = 0f; // option A: disable gravity
-        // rigid.constraints = RigidbodyConstraints2D.FreezePositionY; // option B: freeze Y position instead
+        rigid.gravityScale = 0f;
 
         // compute horizontal and vertical world bounds from main camera
         Camera cam = Camera.main;
@@ -111,29 +106,37 @@ public class WorldForcePlayerDemo : MonoBehaviour
             minY = -100f;
             maxY = 100f;
         }
+
+        // initialize mouse target at start position
+        _mouseWorldTarget = rigid.position;
     }
 
-    // Update is called once per frame
+    // Update reads mouse and converts to world space
     void Update() 
     {
-        xInput = Input.GetAxis("Horizontal");
-        yInput = Input.GetAxis("Vertical");
+        var cam = Camera.main;
+        if (cam != null)
+        {
+            Vector3 mouseScreen = Input.mousePosition;
+            // Use the player's z distance from camera for proper world conversion
+            float zDist = Mathf.Abs(cam.transform.position.z - transform.position.z);
+            mouseScreen.z = zDist;
+            Vector3 world = cam.ScreenToWorldPoint(mouseScreen);
+            _mouseWorldTarget = new Vector2(world.x, world.y);
+        }
     }
 
-    // Physics Update: Provide Forces in this loop instead. 
+    // Physics Update: move toward mouse target
     void FixedUpdate() 
     {
-        // Movement - now supports left/right AND up/down
-        float horizontalInput = xInput;
-        float verticalInput = yInput;
-
-        // set velocity (use correct property)
-        rigid.linearVelocity = new Vector2(horizontalInput * forceAmount, verticalInput * forceAmount);
+        // compute target directly at mouse position (instantaneous snap)
+        Vector2 target = _mouseWorldTarget;
 
         // clamp position to camera bounds on both axes
-        Vector2 pos = transform.position;
-        pos.x = Mathf.Clamp(pos.x, minX, maxX);
-        pos.y = Mathf.Clamp(pos.y, minY, maxY);
-        transform.position = pos; // apply clamped position
+        target.x = Mathf.Clamp(target.x, minX, maxX);
+        target.y = Mathf.Clamp(target.y, minY, maxY);
+
+        // move using physics (preserves interactions)
+        rigid.MovePosition(target);
     }
 }

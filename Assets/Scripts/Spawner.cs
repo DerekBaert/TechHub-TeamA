@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
     }
 
     [SerializeField] private GameObject itemToSpawn;
-    [SerializeField] private SpawnMode spawnMode = SpawnMode.AnywhereInView;
+    [SerializeField] private SpawnMode spawnMode = SpawnMode.OnViewEdgesAroundCamera; // Changed from AnywhereInView
 
     [Header("Timing")]
     [SerializeField] private float minSpawnInterval = 1f;
