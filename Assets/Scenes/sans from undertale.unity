@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 1982821735}
   - component: {fileID: 1982821738}
   - component: {fileID: 1982821739}
+  - component: {fileID: 1982821740}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -589,6 +590,21 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.0000001, y: 2.0000002}
   m_Direction: 0
+--- !u!114 &1982821740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982821734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ee0110b7bf74640aebe916129137dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Melee
+  autoKnockOnOverlap: 0
+  knockSpeedMultiplier: 1.2
+  trashTag: TrashObstacle
 --- !u!1001 &1627440737257492295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -663,6 +679,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 311053815636422375, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
+      propertyPath: cutOffTop
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 311053815636422375, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -731,6 +751,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5675884088586442297, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
+      propertyPath: cutOffTop
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5675884088586442297, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
       propertyPath: moveSpeed
       value: 3
       objectReference: {fileID: 0}
@@ -765,6 +789,10 @@ PrefabInstance:
     - target: {fileID: 6584915942416920191, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692395038121922061, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
+      propertyPath: cutOffTop
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7692395038121922061, guid: 6a6a73e7d1a852e4980e90974a1f5656, type: 3}
       propertyPath: cutOffBottom
