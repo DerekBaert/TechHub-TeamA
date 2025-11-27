@@ -5,6 +5,15 @@ public class Hander : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 20f;
 
+    // new: per-instance spawn delay (time before this instance becomes active/moves)
+    [Header("Spawn timing")]
+    [Tooltip("Time after Instantiate before this object starts moving")]
+    public float spawnDelay = 0f; 
+
+    // internal timer and active flag
+    private float _spawnTimer;
+    private bool _isActive;
+
     // Bottom cutoff: when object's y <= this value it will be destroyed.
     [SerializeField]
     private float cutOffBottom = -30f;
@@ -26,6 +35,10 @@ public class Hander : MonoBehaviour
 
     void Start()
     {
+        // initialize spawn timer from the public spawnDelay (can be set by Spawner after Instantiate)
+        _spawnTimer = spawnDelay;
+        _isActive = _spawnTimer <= 0f;
+
         var home = GameObject.FindGameObjectWithTag(homeBaseTag);
         if (home != null) homeTransform = home.transform;
         else Debug.LogWarning($"Hander: No object with tag '{homeBaseTag}' found. Falling back to downward movement.");
@@ -37,8 +50,24 @@ public class Hander : MonoBehaviour
             currentDirection = Vector3.down;
     }
 
+    // public API so Spawner can set a custom per-spawn delay immediately after Instantiate
+    public void SetSpawnDelay(float delay)
+    {
+        spawnDelay = delay;
+        _spawnTimer = delay;
+        _isActive = _spawnTimer <= 0f;
+    }
+
     void Update()
     {
+        // wait until spawnDelay elapsed
+        if (!_isActive)
+        {
+            _spawnTimer -= Time.deltaTime;
+            if (_spawnTimer <= 0f) _isActive = true;
+            else return;
+        }
+
         // If not outbound and home exists, keep targeting home (handles moving home if it moves)
         if (!isOutbound && homeTransform != null)
         {
@@ -47,8 +76,8 @@ public class Hander : MonoBehaviour
 
         transform.position += currentDirection * moveSpeed * Time.deltaTime;
 
-        // existing bottom cutoff cleanup (keep)
-        if (transform.position.y <= -30f) // or use your cutOffBottom variable
+        // existing bottom cutoff cleanup
+        if (transform.position.y <= cutOffBottom)
         {
             Destroy(gameObject);
         }

@@ -11,32 +11,20 @@ public class Spawner : MonoBehaviour
     }
 
     [SerializeField] private GameObject itemToSpawn;
-    [SerializeField] private SpawnMode spawnMode = SpawnMode.OnViewEdgesAroundCamera; // Changed from AnywhereInView
-
-    [Header("Timing")]
     [SerializeField] private float minSpawnInterval = 1f;
     [SerializeField] private float maxSpawnInterval = 3f;
+
+    // optional: per-spawn delay range applied to each spawned Hander instance
+    [Header("Spawned object delay (before they start moving)")]
+    [Tooltip("If min==max, that exact delay is used. Otherwise a random value in [min,max] is chosen.")]
+    [SerializeField] private float spawnedDelayMin = 0f;
+    [SerializeField] private float spawnedDelayMax = 0f;
+
     private float _timeTillNextSpawn = 0f;
-
-    [Header("Optional player gating")]
-    [SerializeField] private PlayerController player;
-
-    [Header("Viewport spawn settings")]
-    [Tooltip("Padding inside the viewport (0..0.5). 0 = full viewport, 0.1 = avoid 10% from each edge.")]
-    [Range(0f, 0.45f)] [SerializeField] private float viewportPadding = 0.05f;
-
-    [Tooltip("When spawning on edges, how far outside the viewport to place the spawn (world units)")]
-    [SerializeField] private float edgeSpawnOffset = 1f;
-
-    [Tooltip("Randomize spawned rotation")]
-    [SerializeField] private bool randomizeRotation = false;
 
     void Update()
     {
-        bool shouldSpawn = _timeTillNextSpawn <= 0f;
-        if (player != null) shouldSpawn = shouldSpawn && player.IsAlive;
-
-        if (!shouldSpawn)
+        if (_timeTillNextSpawn > 0f)
         {
             _timeTillNextSpawn -= Time.deltaTime;
             return;
@@ -48,66 +36,29 @@ public class Spawner : MonoBehaviour
 
     private void SpawnOne()
     {
-        if (itemToSpawn == null)
-        {
-            Debug.LogWarning("Spawner: itemToSpawn is null.");
-            return;
-        }
+        if (itemToSpawn == null) return;
 
+        // compute spawnPos / spawnRot per your existing logic
         Vector3 spawnPos = transform.position;
         Quaternion spawnRot = transform.rotation;
 
-        Camera cam = Camera.main;
-        if (spawnMode == SpawnMode.AtSpawner || cam == null)
-        {
-            // keep transform.position (fallback if no camera)
-            spawnPos = transform.position;
-        }
-        else if (spawnMode == SpawnMode.AnywhereInView)
-        {
-            // pick a random point inside the camera viewport, respecting padding
-            float minV = viewportPadding;
-            float maxV = 1f - viewportPadding;
-            float vx = Random.Range(minV, maxV);
-            float vy = Random.Range(minV, maxV);
+        GameObject spawned = Instantiate(itemToSpawn, spawnPos, spawnRot);
 
-            float zDist = Mathf.Abs(cam.transform.position.z - transform.position.z);
-            spawnPos = cam.ViewportToWorldPoint(new Vector3(vx, vy, zDist));
-        }
-        else if (spawnMode == SpawnMode.OnViewEdgesAroundCamera)
+        // set a per-spawn delay on the spawned Hander (if present)
+        float delay = Mathf.Approximately(spawnedDelayMin, spawnedDelayMax)
+            ? spawnedDelayMin
+            : Random.Range(spawnedDelayMin, spawnedDelayMax);
+
+        var handler = spawned.GetComponent<Hander>();
+        if (handler != null)
         {
-            // choose a random side and a coordinate along that side, spawn just outside viewport
-            int side = Random.Range(0, 4); // 0=left,1=right,2=bottom,3=top
-            float along = Random.Range(viewportPadding, 1f - viewportPadding);
-            float zDist = Mathf.Abs(cam.transform.position.z - transform.position.z);
-
-            switch (side)
-            {
-                case 0: // left
-                    spawnPos = cam.ViewportToWorldPoint(new Vector3(0f - 0.001f, along, zDist));
-                    spawnPos.x -= edgeSpawnOffset;
-                    break;
-                case 1: // right
-                    spawnPos = cam.ViewportToWorldPoint(new Vector3(1f + 0.001f, along, zDist));
-                    spawnPos.x += edgeSpawnOffset;
-                    break;
-                case 2: // bottom
-                    spawnPos = cam.ViewportToWorldPoint(new Vector3(along, 0f - 0.001f, zDist));
-                    spawnPos.y -= edgeSpawnOffset;
-                    break;
-                case 3: // top
-                    spawnPos = cam.ViewportToWorldPoint(new Vector3(along, 1f + 0.001f, zDist));
-                    spawnPos.y += edgeSpawnOffset;
-                    break;
-            }
+            handler.SetSpawnDelay(delay);
         }
-
-        if (randomizeRotation)
+        else
         {
-            spawnRot = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+            // If the spawned prefab doesn't have Hander, you can optionally try a component name or log
+            // Debug.LogWarning("Spawned object has no Hander component to set spawn delay on.");
         }
-
-        Instantiate(itemToSpawn, spawnPos, spawnRot);
     }
 }
 
