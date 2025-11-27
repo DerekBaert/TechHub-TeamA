@@ -16,10 +16,12 @@ public class HealthBar : MonoBehaviour
     void Update()
     {
         healthBar.value = currentValue;
+        Debug.Log(healthBar.value);
     }
 
     public void UpdateHealthBar(float value)
     {
+       //Debug.Log("Health updated " + value);
         currentValue = value;
     }
 }

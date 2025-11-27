@@ -8,10 +8,7 @@ public class TowerHealthManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Update()
     {
-      if (HealthAmount <= 0)
-        {
-            Application.LoadLevel(Application.loadedLevel);
-        }
+      
         
         if (Input.GetKeyDown(KeyCode.Return))
         {

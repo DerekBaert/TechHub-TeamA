@@ -8,6 +8,7 @@ public class CollisonsDemo: MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerHealth>())
         {
+            Debug.Log("Hit tower");
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(1);
         }
     }
