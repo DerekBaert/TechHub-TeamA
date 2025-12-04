@@ -21,6 +21,12 @@ public class WorldForcePlayerDemo : MonoBehaviour
 
     public bool IsAlive => isAlive; // Public property to check player state
 
+    [Header("Auto-facing")]
+    [SerializeField] private string homeBaseTag = "HomeBase";
+    private Transform homeTransform;
+    [Tooltip("Adjust so the sprite's front faces 'away' from HomeBase. 0 = sprite faces right by default.")]
+    [SerializeField] private float facingOffsetDeg = 0f;
+
     [Header("Screen bounds")]
     [SerializeField] private float horizontalPadding = 0.1f; // world units from edge
     private float minX;
@@ -109,6 +115,10 @@ public class WorldForcePlayerDemo : MonoBehaviour
 
         // initialize mouse target at start position
         _mouseWorldTarget = rigid.position;
+
+        // find HomeBase once at start (falls back gracefully)
+        var hb = GameObject.FindGameObjectWithTag(homeBaseTag);
+        if (hb != null) homeTransform = hb.transform;
     }
 
     // Update reads mouse and converts to world space
@@ -138,5 +148,16 @@ public class WorldForcePlayerDemo : MonoBehaviour
 
         // move using physics (preserves interactions)
         rigid.MovePosition(target);
+
+        // make player face outward (away from HomeBase)
+        if (homeTransform != null)
+        {
+            Vector2 away = (Vector2)(transform.position - homeTransform.position);
+            if (away.sqrMagnitude > 0.0001f)
+            {
+                float angle = Mathf.Atan2(away.y, away.x) * Mathf.Rad2Deg + facingOffsetDeg;
+                transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            }
+        }
     }
 }

@@ -20,6 +20,10 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float spawnedDelayMin = 0f;
     [SerializeField] private float spawnedDelayMax = 0f;
 
+    [Header("Spawn rotation")]
+    [Tooltip("If true, each spawned object gets a random rotation (0-360 degrees on Z-axis).")]
+    [SerializeField] private bool randomizeRotation = false;
+
     private float _timeTillNextSpawn = 0f;
 
     void Update()
@@ -42,6 +46,12 @@ public class Spawner : MonoBehaviour
         Vector3 spawnPos = transform.position;
         Quaternion spawnRot = transform.rotation;
 
+        // optionally randomize rotation
+        if (randomizeRotation)
+        {
+            spawnRot = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+        }
+
         GameObject spawned = Instantiate(itemToSpawn, spawnPos, spawnRot);
 
         // set a per-spawn delay on the spawned Hander (if present)
@@ -53,11 +63,6 @@ public class Spawner : MonoBehaviour
         if (handler != null)
         {
             handler.SetSpawnDelay(delay);
-        }
-        else
-        {
-            // If the spawned prefab doesn't have Hander, you can optionally try a component name or log
-            // Debug.LogWarning("Spawned object has no Hander component to set spawn delay on.");
         }
     }
 }
