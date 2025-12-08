@@ -14,17 +14,15 @@ public class Hander : MonoBehaviour
     private float _spawnTimer;
     private bool _isActive;
 
-    // Bottom cutoff: when object's y <= this value it will be destroyed.
-    [SerializeField]
-    private float cutOffBottom = -30f;
-
-    // Optional top cutoff if you ever need it
-    [SerializeField]
-    private float cutOffTop = 25f;
-
     [Header("HomeBase impact")]
     [SerializeField] private int damageAmount = 1;
     [SerializeField] private string homeBaseTag = "HomeBase";
+    [Tooltip("Optional sound to play when this trash collides with the HomeBase.")]
+    public AudioClip impactSfx;
+
+    [Tooltip("Volume to play the impact SFX at (0.0 - 1.0).")]
+    [Range(0f, 1f)]
+    public float impactSfxVolume = 1f;
 
     private Transform homeTransform;
     private bool hasDamaged = false;
@@ -75,12 +73,6 @@ public class Hander : MonoBehaviour
         }
 
         transform.position += currentDirection * moveSpeed * Time.deltaTime;
-
-        // existing bottom cutoff cleanup
-        if (transform.position.y <= cutOffBottom)
-        {
-            Destroy(gameObject);
-        }
     }
 
     // NEW: called by Melee to send this trash outward (away from HomeBase)
@@ -110,6 +102,12 @@ public class Hander : MonoBehaviour
         if (other.CompareTag(homeBaseTag))
         {
             other.gameObject.SendMessage("TakeDamage", damageAmount, SendMessageOptions.DontRequireReceiver);
+            // play impact SFX at this object's position if assigned
+            if (impactSfx != null)
+            {
+                AudioSource.PlayClipAtPoint(impactSfx, transform.position, impactSfxVolume);
+            }
+
             hasDamaged = true;
             Destroy(gameObject);
         }
@@ -124,6 +122,12 @@ public class Hander : MonoBehaviour
         {
             collision.gameObject.SendMessage("TakeDamage", damageAmount, SendMessageOptions.DontRequireReceiver);
             collision.gameObject.SendMessage("health", damageAmount, SendMessageOptions.DontRequireReceiver);
+
+            // play impact SFX at this object's position if assigned
+            if (impactSfx != null)
+            {
+                AudioSource.PlayClipAtPoint(impactSfx, transform.position, impactSfxVolume);
+            }
 
             hasDamaged = true;
             Destroy(gameObject);

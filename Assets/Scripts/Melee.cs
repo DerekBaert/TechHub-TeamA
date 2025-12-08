@@ -15,6 +15,14 @@ public class Melee : MonoBehaviour
     // track overlapping Hander instances
     private readonly HashSet<Hander> _overlapping = new HashSet<Hander>();
 
+    [Tooltip("Optional clip to play when the mouse is clicked (left button).")]
+    public AudioClip clickSfx;
+
+    [Tooltip("Optional AudioSource to play the click SFX. If null, one will be created on Start.")]
+    public AudioSource clickAudioSource;
+
+    private AudioSource _audioSource;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag(trashTag)) return;
@@ -38,14 +46,36 @@ public class Melee : MonoBehaviour
 
     private void Update()
     {
-        // left mouse click triggers knock on all overlapping trash
-        if (Input.GetMouseButtonDown(0) && _overlapping.Count > 0)
+        // play click SFX on left mouse click (regardless of overlap)
+        if (Input.GetMouseButtonDown(0))
         {
-            foreach (var h in _overlapping)
+            if (clickSfx != null)
             {
-                if (h != null) h.SendOutward(knockSpeedMultiplier);
+                // prefer assigned source, fall back to the one we obtained/created
+                var src = clickAudioSource != null ? clickAudioSource : _audioSource;
+                if (src != null) src.PlayOneShot(clickSfx);
             }
-            _overlapping.Clear();
+
+            // left mouse click also triggers knock on all overlapping trash
+            if (_overlapping.Count > 0)
+            {
+                foreach (var h in _overlapping)
+                {
+                    if (h != null) h.SendOutward(knockSpeedMultiplier);
+                }
+                _overlapping.Clear();
+            }
+        }
+    }
+
+    private void Start()
+    {
+        // resolve or create an AudioSource to play click SFX if needed
+        _audioSource = clickAudioSource != null ? clickAudioSource : GetComponent<AudioSource>();
+        if (_audioSource == null && clickSfx != null)
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+            _audioSource.playOnAwake = false;
         }
     }
 }
