@@ -3030,11 +3030,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1777205919157257519, guid: fb5be6ee29bc0874fb0f523e9eb7957f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -267
+      value: -394
       objectReference: {fileID: 0}
     - target: {fileID: 1777205919157257519, guid: fb5be6ee29bc0874fb0f523e9eb7957f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -178
+      value: -221
       objectReference: {fileID: 0}
     - target: {fileID: 1991182095392440590, guid: fb5be6ee29bc0874fb0f523e9eb7957f, type: 3}
       propertyPath: m_CullTransparentMesh
@@ -3066,11 +3066,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6879616650255166273, guid: fb5be6ee29bc0874fb0f523e9eb7957f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -259
+      value: -388
       objectReference: {fileID: 0}
     - target: {fileID: 6879616650255166273, guid: fb5be6ee29bc0874fb0f523e9eb7957f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 177
+      value: 223
       objectReference: {fileID: 0}
     - target: {fileID: 7927943289042100131, guid: fb5be6ee29bc0874fb0f523e9eb7957f, type: 3}
       propertyPath: m_Maskable
