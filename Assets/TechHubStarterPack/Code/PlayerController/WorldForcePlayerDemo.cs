@@ -136,7 +136,7 @@ public class WorldForcePlayerDemo : MonoBehaviour
         }
     }
 
-    // Physics Update: move toward mouse target
+        // Physics Update: move toward mouse target
     void FixedUpdate() 
     {
         // compute target directly at mouse position (instantaneous snap)
@@ -146,10 +146,25 @@ public class WorldForcePlayerDemo : MonoBehaviour
         target.x = Mathf.Clamp(target.x, minX, maxX);
         target.y = Mathf.Clamp(target.y, minY, maxY);
 
+        // prevent overlap with HomeBase
+        if (homeTransform != null)
+        {
+            float minDistFromHome = 1f; // adjust distance to prevent overlap (world units)
+            Vector2 dirFromHome = (target - (Vector2)homeTransform.position).normalized;
+            float distToHome = Vector2.Distance(target, homeTransform.position);
+
+            if (distToHome < minDistFromHome)
+            {
+                // push player away from HomeBase
+                target = (Vector2)homeTransform.position + dirFromHome * minDistFromHome;
+            }
+        }
+
         // move using physics (preserves interactions)
         rigid.MovePosition(target);
 
         // make player face outward (away from HomeBase)
+        // This code runs every frame so direction switches instantly as mouse moves
         if (homeTransform != null)
         {
             Vector2 away = (Vector2)(transform.position - homeTransform.position);
