@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 347f34d376bd49c42b3dbc9649fe2f74
+guid: 33bb26a6a0ed4274d822cee03d18f607
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2187108891509450081
-    second: image_2025-11-06_093210656-removebg-preview_0
-  - first:
-      213: 353107535608904374
-    second: image_2025-11-06_093210656-removebg-preview_1
-  - first:
-      213: -2942326056287531961
-    second: image_2025-11-06_093210656-removebg-preview_2
+      213: -7541813118117789782
+    second: Opera_Snapshot_2025-12-11_131252_docs.google.com-removebg-preview_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: image_2025-11-06_093210656-removebg-preview_0
+      name: Opera_Snapshot_2025-12-11_131252_docs.google.com-removebg-preview_0
       rect:
         serializedVersion: 2
-        x: 35
-        y: 28
-        width: 172
-        height: 624
+        x: 4
+        y: 23
+        width: 359
+        height: 636
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,52 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 165e483f2fb2a5e10800000000000000
-      internalID: 2187108891509450081
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: image_2025-11-06_093210656-removebg-preview_1
-      rect:
-        serializedVersion: 2
-        x: 170
-        y: 201
-        width: 48
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6ba7b7bce6d76e400800000000000000
-      internalID: 353107535608904374
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: image_2025-11-06_093210656-removebg-preview_2
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 106
-        width: 55
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 74c0b997a02ca27d0800000000000000
-      internalID: -2942326056287531961
+      spriteID: aaf35346de8165790800000000000000
+      internalID: -7541813118117789782
       vertices: []
       indices: 
       edges: []
@@ -198,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      image_2025-11-06_093210656-removebg-preview_0: 2187108891509450081
-      image_2025-11-06_093210656-removebg-preview_1: 353107535608904374
-      image_2025-11-06_093210656-removebg-preview_2: -2942326056287531961
+      Opera_Snapshot_2025-12-11_131252_docs.google.com-removebg-preview_0: -7541813118117789782
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
