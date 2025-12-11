@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9a2cf190b9216864ebd160c56d875de6
+guid: 59d519ec0ff1c1d40b7a8a834960cd46
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5768528099153596973
-    second: image_2025-11-06_123537665-removebg-preview_0
+      213: -4623698706636800013
+    second: Opera_Snapshot_2025-12-11_131338_docs.google.com-removebg-preview_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: image_2025-11-06_123537665-removebg-preview_0
+      name: Opera_Snapshot_2025-12-11_131338_docs.google.com-removebg-preview_0
       rect:
         serializedVersion: 2
-        x: 57
-        y: 8
-        width: 566
-        height: 343
+        x: 21
+        y: 42
+        width: 437
+        height: 420
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d22d8e24ebded0050800000000000000
-      internalID: 5768528099153596973
+      spriteID: 3fffa72168255dfb0800000000000000
+      internalID: -4623698706636800013
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      image_2025-11-06_123537665-removebg-preview_0: 5768528099153596973
+      Opera_Snapshot_2025-12-11_131338_docs.google.com-removebg-preview_0: -4623698706636800013
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
