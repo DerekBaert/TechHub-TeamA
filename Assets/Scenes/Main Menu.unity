@@ -702,6 +702,30 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.AudioSource, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1251930515825431200, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251930515825431200, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251930515825431200, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251930515825431200, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251930515825431200, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 488
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251930515825431200, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1478462169519613700, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
       propertyPath: m_SizeDelta.x
       value: 233.684
@@ -807,6 +831,26 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3782480221093241019, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858664982448248152, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858664982448248152, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 369e881d0cebcce418046bc940ac7065, type: 3}
+    - target: {fileID: 3858664982448248152, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858664982448248152, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858664982448248152, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
@@ -1031,7 +1075,8 @@ PrefabInstance:
       value: -314.079
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5024334717932758004, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7517670527809694721, guid: 5c36a81a12ff0f94da5205ee94339835, type: 3}
       insertIndex: 1
