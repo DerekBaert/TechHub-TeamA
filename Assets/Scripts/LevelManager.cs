@@ -17,7 +17,16 @@ public class LevelManager : MonoBehaviour
         UIManager _ui = GetComponent<UIManager>();
         if (_ui != null)
         {
-            _ui.ToggleDeathPanel();
+            // prefer an existing Stopwatch reference if available
+            Stopwatch sw = _ui.stopwatch != null ? _ui.stopwatch : FindObjectOfType<Stopwatch>();
+
+            string formatted = "Personal Best: 0:00.00s";
+            if (sw != null)
+            {
+                formatted = sw.GetFormattedHighestTime("Personal Best: ");
+            }
+
+            _ui.ShowDeathPanelWithFormattedTime(formatted);
         }
     }
 }

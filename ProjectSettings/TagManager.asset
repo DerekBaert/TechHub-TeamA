@@ -6,6 +6,8 @@ TagManager:
   tags:
   - TrashObstacle
   - HomeBase
+  - DeathPanel
+  - BGM
   layers:
   - Default
   - TransparentFX
