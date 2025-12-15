@@ -24,8 +24,10 @@ public class WorldForcePlayerDemo : MonoBehaviour
     [Header("Auto-facing")]
     [SerializeField] private string homeBaseTag = "HomeBase";
     private Transform homeTransform;
-    [Tooltip("Adjust so the sprite's front faces 'away' from HomeBase. 0 = sprite faces right by default.")]
+    [Tooltip("Adjust the facing angle. Sprite faces away from HomeBase, flips 180 degrees when counter-clockwise circling starts. 0 = sprite faces right by default.")]
     [SerializeField] private float facingOffsetDeg = 0f;
+    [Tooltip("Minimum angle change (degrees) to detect counter-clockwise circling and trigger flip.")]
+    [SerializeField] private float angleChangeThreshold = 5f;
 
     [Header("Screen bounds")]
     [SerializeField] private float horizontalPadding = 0.1f; // world units from edge
@@ -33,6 +35,11 @@ public class WorldForcePlayerDemo : MonoBehaviour
     private float maxX;
     private float minY;
     private float maxY;
+
+    private float _previousMouseAngle = float.MinValue;
+    private bool _isCirclingCounterClockwise;
+    private bool _wasCirclingCounterClockwise = false;
+    private bool _isFlipped = false;
 
     private void Awake()
     {
@@ -134,6 +141,24 @@ public class WorldForcePlayerDemo : MonoBehaviour
             Vector3 world = cam.ScreenToWorldPoint(mouseScreen);
             _mouseWorldTarget = new Vector2(world.x, world.y);
         }
+
+        // Detect if mouse is circling counter-clockwise around HomeBase
+        if (homeTransform != null)
+        {
+            float currentAngle = Mathf.Atan2(_mouseWorldTarget.y - homeTransform.position.y, _mouseWorldTarget.x - homeTransform.position.x) * Mathf.Rad2Deg;
+            if (_previousMouseAngle != float.MinValue)
+            {
+                float diff = Mathf.DeltaAngle(_previousMouseAngle, currentAngle);
+                _isCirclingCounterClockwise = diff < -angleChangeThreshold;
+                // Toggle flip on start of counter-clockwise circling
+                if (!_wasCirclingCounterClockwise && _isCirclingCounterClockwise)
+                {
+                    _isFlipped = !_isFlipped;
+                }
+                _wasCirclingCounterClockwise = _isCirclingCounterClockwise;
+            }
+            _previousMouseAngle = currentAngle;
+        }
     }
 
         // Physics Update: move toward mouse target
@@ -163,14 +188,14 @@ public class WorldForcePlayerDemo : MonoBehaviour
         // move using physics (preserves interactions)
         rigid.MovePosition(target);
 
-        // make player face outward (away from HomeBase)
-        // This code runs every frame so direction switches instantly as mouse moves
+        // make player face away from or towards HomeBase based on flip state
+        // Flips 180 degrees when counter-clockwise circling starts, stays until next flip
         if (homeTransform != null)
         {
-            Vector2 away = (Vector2)(transform.position - homeTransform.position);
-            if (away.sqrMagnitude > 0.0001f)
+            Vector2 dir = _isFlipped ? (Vector2)homeTransform.position - (Vector2)transform.position : (Vector2)transform.position - (Vector2)homeTransform.position;
+            if (dir.sqrMagnitude > 0.0001f)
             {
-                float angle = Mathf.Atan2(away.y, away.x) * Mathf.Rad2Deg + facingOffsetDeg;
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + facingOffsetDeg;
                 transform.rotation = Quaternion.Euler(0f, 0f, angle);
             }
         }

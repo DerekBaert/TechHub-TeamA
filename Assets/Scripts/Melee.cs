@@ -21,6 +21,9 @@ public class Melee : MonoBehaviour
     [Tooltip("Optional AudioSource to play the click SFX. If null, one will be created on Start.")]
     public AudioSource clickAudioSource;
 
+    [Tooltip("Optional particle effect to play when knocking trash.")]
+    public ParticleSystem knockParticleEffect;
+
     private AudioSource _audioSource;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -35,6 +38,7 @@ public class Melee : MonoBehaviour
         if (autoKnockOnOverlap)
         {
             h.SendOutward(knockSpeedMultiplier);
+            if (knockParticleEffect != null) knockParticleEffect.Play();
         }
     }
 
@@ -64,6 +68,7 @@ public class Melee : MonoBehaviour
                     if (h != null) h.SendOutward(knockSpeedMultiplier);
                 }
                 _overlapping.Clear();
+                if (knockParticleEffect != null) knockParticleEffect.Play();
             }
         }
     }
