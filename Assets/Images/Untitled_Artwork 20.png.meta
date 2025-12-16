@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: 347f34d376bd49c42b3dbc9649fe2f74
+guid: 3b928dc2b9a7ef14dbd00404b9a41011
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2187108891509450081
-    second: image_2025-11-06_093210656-removebg-preview_0
+      213: 7812570043577454387
+    second: Untitled_Artwork 20_0
   - first:
-      213: 353107535608904374
-    second: image_2025-11-06_093210656-removebg-preview_1
+      213: -549349329266362964
+    second: Untitled_Artwork 20_1
   - first:
-      213: -2942326056287531961
-    second: image_2025-11-06_093210656-removebg-preview_2
+      213: 7964406070948785572
+    second: Untitled_Artwork 20_2
+  - first:
+      213: -4282858618097800436
+    second: Untitled_Artwork 20_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +55,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -119,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: image_2025-11-06_093210656-removebg-preview_0
+      name: Untitled_Artwork 20_0
       rect:
         serializedVersion: 2
-        x: 35
-        y: 28
-        width: 172
-        height: 624
+        x: 759
+        y: 160
+        width: 290
+        height: 468
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +137,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 165e483f2fb2a5e10800000000000000
-      internalID: 2187108891509450081
+      spriteID: 33fca46df03db6c60800000000000000
+      internalID: 7812570043577454387
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_2025-11-06_093210656-removebg-preview_1
+      name: Untitled_Artwork 20_1
       rect:
         serializedVersion: 2
-        x: 170
-        y: 201
-        width: 48
-        height: 43
+        x: 1025
+        y: 202
+        width: 426
+        height: 464
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,20 +159,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6ba7b7bce6d76e400800000000000000
-      internalID: 353107535608904374
+      spriteID: ca5ba7312b15068f0800000000000000
+      internalID: -549349329266362964
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: image_2025-11-06_093210656-removebg-preview_2
+      name: Untitled_Artwork 20_2
       rect:
         serializedVersion: 2
-        x: 31
-        y: 106
-        width: 55
-        height: 52
+        x: 1402
+        y: 374
+        width: 159
+        height: 355
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,8 +181,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 74c0b997a02ca27d0800000000000000
-      internalID: -2942326056287531961
+      spriteID: 4adedd1df11478e60800000000000000
+      internalID: 7964406070948785572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Untitled_Artwork 20_3
+      rect:
+        serializedVersion: 2
+        x: 1478
+        y: 255
+        width: 109
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0b6f0547ca3094c0800000000000000
+      internalID: -4282858618097800436
       vertices: []
       indices: 
       edges: []
@@ -188,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -198,9 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      image_2025-11-06_093210656-removebg-preview_0: 2187108891509450081
-      image_2025-11-06_093210656-removebg-preview_1: 353107535608904374
-      image_2025-11-06_093210656-removebg-preview_2: -2942326056287531961
+      Untitled_Artwork 20_0: 7812570043577454387
+      Untitled_Artwork 20_1: -549349329266362964
+      Untitled_Artwork 20_2: 7964406070948785572
+      Untitled_Artwork 20_3: -4282858618097800436
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
