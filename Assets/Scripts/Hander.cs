@@ -30,20 +30,28 @@ public class Hander : MonoBehaviour
     // NEW: current travel direction and outbound flag
     private Vector3 currentDirection;
     private bool isOutbound = false;
-
+    private Transform targetTransform; // can be HomeBase or CrabTrap
     void Start()
     {
         // initialize spawn timer from the public spawnDelay (can be set by Spawner after Instantiate)
         _spawnTimer = spawnDelay;
         _isActive = _spawnTimer <= 0f;
 
+        // find HomeBase once
         var home = GameObject.FindGameObjectWithTag(homeBaseTag);
-        if (home != null) homeTransform = home.transform;
-        else Debug.LogWarning($"Hander: No object with tag '{homeBaseTag}' found. Falling back to downward movement.");
+        if (home != null)
+        {
+            homeTransform = home.transform;
+            targetTransform = homeTransform;
+        }
+        else
+        {
+            Debug.LogWarning($"Hander: No object with tag '{homeBaseTag}' found. Falling back to downward movement.");
+        }
 
-        // initialize direction toward home if available, otherwise down
-        if (homeTransform != null)
-            currentDirection = (homeTransform.position - transform.position).normalized;
+        // initialize direction toward target if available, otherwise down
+        if (targetTransform != null)
+            currentDirection = (targetTransform.position - transform.position).normalized;
         else
             currentDirection = Vector3.down;
     }
@@ -58,7 +66,6 @@ public class Hander : MonoBehaviour
 
     void Update()
     {
-        // wait until spawnDelay elapsed
         if (!_isActive)
         {
             _spawnTimer -= Time.deltaTime;
@@ -66,25 +73,31 @@ public class Hander : MonoBehaviour
             else return;
         }
 
-        // If not outbound and home exists, keep targeting home (handles moving home if it moves)
-        if (!isOutbound && homeTransform != null)
+        // move toward current target (HomeBase or CrabTrap)
+        if (!isOutbound && targetTransform != null)
         {
-            currentDirection = (homeTransform.position - transform.position).normalized;
+            currentDirection = (targetTransform.position - transform.position).normalized;
         }
 
         transform.position += currentDirection * moveSpeed * Time.deltaTime;
     }
 
-    // NEW: called by Melee to send this trash outward (away from HomeBase)
+    // new: called by CrabTrap to redirect this trash toward the trap
+    public void SendTowardTarget(Transform newTarget)
+    {
+        targetTransform = newTarget;
+        isOutbound = false;
+    }
+
     public void SendOutward(float speedMultiplier = 1f)
     {
+        // ...existing code...
         if (homeTransform != null)
         {
-            currentDirection = (transform.position - homeTransform.position).normalized; // away from home
+            currentDirection = (transform.position - homeTransform.position).normalized;
         }
         else
         {
-            // fallback: outward is up
             currentDirection = Vector3.up;
         }
 
