@@ -716,7 +716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &273096819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,7 +1386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -229.83334}
+  m_AnchoredPosition: {x: 0, y: -170}
   m_SizeDelta: {x: 150, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &844709243
@@ -7260,7 +7260,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -168}
+  m_AnchoredPosition: {x: 0, y: -110}
   m_SizeDelta: {x: 150, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1973073779
@@ -8496,7 +8496,7 @@ PrefabInstance:
     - target: {fileID: 5753135637149686694, guid: 49fe8f1813125a2409db05c3f8a968bb, type: 3}
       propertyPath: knockParticleEffect
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1101689916}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
