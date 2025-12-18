@@ -1,33 +1,34 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-// This class is responsible for spawning a specified item at timed intervals.
+[System.Serializable]
+public class WeightedTrash
+{
+    public GameObject prefab;
+    [Range(1, 100)] public int weight = 10;
+    
+    // NEW: Slider for spawn delay specific to this item type
+    [Range(0f, 100f)] public float specificSpawnDelay = 0.5f;
+}
+
 public class Spawner : MonoBehaviour
 {
-    public enum SpawnMode
-    {
-        AtSpawner,
-        AnywhereInView,
-        OnViewEdgesAroundCamera
-    }
+    [Header("Trash Configuration")]
+    [SerializeField] private List<WeightedTrash> itemsToSpawn;
+    
+    [Header("Fixed Timing")]
+    [SerializeField] private float spawnInterval = 1f;
 
-    [SerializeField] private GameObject itemToSpawn;
-    [SerializeField] private float minSpawnInterval = 1f;
-    [SerializeField] private float maxSpawnInterval = 3f;
-
-    // optional: per-spawn delay range applied to each spawned Hander instance
-    [Header("Spawned object delay (before they start moving)")]
-    [Tooltip("If min==max, that exact delay is used. Otherwise a random value in [min,max] is chosen.")]
-    [SerializeField] private float spawnedDelayMin = 0f;
-    [SerializeField] private float spawnedDelayMax = 0f;
-
-    [Header("Spawn rotation")]
-    [Tooltip("If true, each spawned object gets a random rotation (0-360 degrees on Z-axis).")]
-    [SerializeField] private bool randomizeRotation = false;
+    [Header("Placement Randomization")]
+    [SerializeField] private float spawnRadius = 5f;
+    [SerializeField] private bool randomizeRotation = true;
 
     private float _timeTillNextSpawn = 0f;
 
     void Update()
     {
+        if (itemsToSpawn == null || itemsToSpawn.Count == 0) return;
+
         if (_timeTillNextSpawn > 0f)
         {
             _timeTillNextSpawn -= Time.deltaTime;
@@ -35,48 +36,54 @@ public class Spawner : MonoBehaviour
         }
 
         SpawnOne();
-        _timeTillNextSpawn = Random.Range(minSpawnInterval, maxSpawnInterval);
+        _timeTillNextSpawn = spawnInterval; 
     }
 
     private void SpawnOne()
     {
-        if (itemToSpawn == null) return;
+        // 1. Get the random weighted item data
+        WeightedTrash selectedData = GetWeightedRandomItem();
+        if (selectedData == null || selectedData.prefab == null) return;
 
-        // compute spawnPos / spawnRot per your existing logic
-        Vector3 spawnPos = transform.position;
-        Quaternion spawnRot = transform.rotation;
+        // 2. Random Position & Rotation
+        Vector2 randomCirclePoint = Random.insideUnitCircle * spawnRadius;
+        Vector3 spawnPos = transform.position + new Vector3(randomCirclePoint.x, randomCirclePoint.y, 0f);
 
-        // optionally randomize rotation
-        if (randomizeRotation)
-        {
-            spawnRot = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
-        }
+        Quaternion spawnRot = randomizeRotation 
+            ? Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)) 
+            : transform.rotation;
 
-        GameObject spawned = Instantiate(itemToSpawn, spawnPos, spawnRot);
+        GameObject spawned = Instantiate(selectedData.prefab, spawnPos, spawnRot);
 
-        // set a per-spawn delay on the spawned Hander (if present)
-        float delay = Mathf.Approximately(spawnedDelayMin, spawnedDelayMax)
-            ? spawnedDelayMin
-            : Random.Range(spawnedDelayMin, spawnedDelayMax);
+        // 3. APPLY THE SPECIFIC DELAY
+        // We use the delay value defined in the slider for this specific item
+        float delayToApply = selectedData.specificSpawnDelay;
 
-        var handler = spawned.GetComponent<Hander>();
-        if (handler != null)
-        {
-            handler.SetSpawnDelay(delay);
-        }
+        if (spawned.TryGetComponent(out Hander h)) h.SetSpawnDelay(delayToApply);
+        else if (spawned.TryGetComponent(out CigaretEel e)) e.SetSpawnDelay(delayToApply);
+        else if (spawned.TryGetComponent(out CartenCrab c)) c.SetSpawnDelay(delayToApply);
     }
-}
 
-// A simple PlayerController class to demonstrate the dependency check.
-// This would need to be a separate script on your player GameObject.
-public class PlayerController : MonoBehaviour
-{
-    public bool IsAlive { get; private set; } = true;
-
-    // A method that can be called by other scripts to set the player's status.
-    public void Die()
+    // Modified to return the whole data object so we can access the delay slider
+    private WeightedTrash GetWeightedRandomItem()
     {
-        IsAlive = false;
-        Debug.Log("Player is dead, spawner will stop.");
+        int totalWeight = 0;
+        foreach (var item in itemsToSpawn) totalWeight += item.weight;
+
+        int randomRoll = Random.Range(0, totalWeight);
+        int currentWeightSum = 0;
+
+        foreach (var item in itemsToSpawn)
+        {
+            currentWeightSum += item.weight;
+            if (randomRoll < currentWeightSum) return item;
+        }
+        return null;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, spawnRadius);
     }
 }

@@ -31,6 +31,9 @@ public class CrabTrap : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private float _cooldownTimer = 0f;
     private bool _isOnCooldown = false;
 
+    // THIS IS THE LINE THE ERROR IS ASKING FOR:
+    public bool IsOnCooldown => _isOnCooldown;
+
     [Header("Initial global lock (seconds after level load)")]
     [SerializeField] private float initialLockDuration = 15f;
 
@@ -43,11 +46,19 @@ public class CrabTrap : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             _originalAnchoredPos = rectTransform.anchoredPosition;
         }
+
+        // REGISTER: Tell the manager this trap exists
+        TrapManager.RegisterTrap(this);
+    }
+
+    void OnDestroy()
+    {
+        // UNREGISTER: Cleanup when the trap/scene is destroyed
+        TrapManager.UnregisterTrap(this);
     }
 
     void Update()
     {
-        // template cooldown
         if (_isOnCooldown)
         {
             _cooldownTimer -= Time.deltaTime;

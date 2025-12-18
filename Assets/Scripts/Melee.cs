@@ -9,78 +9,101 @@ public class Melee : MonoBehaviour
     [Tooltip("Multiplier applied to trash moveSpeed when knocked outward.")]
     public float knockSpeedMultiplier = 1.2f;
 
-    // Optional tag filter (set on trash prefabs)
     public string trashTag = "TrashObstacle";
 
-    // track overlapping Hander instances
-    private readonly HashSet<Hander> _overlapping = new HashSet<Hander>();
+    // Track overlapping objects using the base GameObject to support different scripts
+    private readonly HashSet<GameObject> _overlappingObjects = new HashSet<GameObject>();
 
-    [Tooltip("Optional clip to play when the mouse is clicked (left button).")]
+    [Tooltip("Clip to play ONLY when clicking while overlapping trash.")]
     public AudioClip clickSfx;
 
-    [Tooltip("Optional AudioSource to play the click SFX. If null, one will be created on Start.")]
     public AudioSource clickAudioSource;
-
-    [Tooltip("Optional particle effect to play when knocking trash.")]
     public ParticleSystem knockParticleEffect;
+    private AudioSource _internalAudioSource;
 
-    private AudioSource _audioSource;
+    private void Start()
+    {
+        _internalAudioSource = clickAudioSource != null ? clickAudioSource : GetComponent<AudioSource>();
+        if (_internalAudioSource == null && clickSfx != null)
+        {
+            _internalAudioSource = gameObject.AddComponent<AudioSource>();
+            _internalAudioSource.playOnAwake = false;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag(trashTag)) return;
-
-        var h = other.GetComponent<Hander>();
-        if (h == null) return;
-
-        _overlapping.Add(h);
+        
+        _overlappingObjects.Add(other.gameObject);
 
         if (autoKnockOnOverlap)
         {
-            h.SendOutward(knockSpeedMultiplier);
-            if (knockParticleEffect != null) knockParticleEffect.Play();
+            ExecuteKnock(other.gameObject);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        var h = other.GetComponent<Hander>();
-        if (h != null) _overlapping.Remove(h);
+        if (_overlappingObjects.Contains(other.gameObject))
+        {
+            _overlappingObjects.Remove(other.gameObject);
+        }
     }
 
     private void Update()
     {
-        // play click SFX on left mouse click (regardless of overlap)
-        if (Input.GetMouseButtonDown(0))
+        // Only trigger if Left Click is pressed AND there are items in the overlap set
+        if (Input.GetMouseButtonDown(0) && _overlappingObjects.Count > 0)
         {
-            if (clickSfx != null)
+            bool playedSound = false;
+
+            foreach (GameObject obj in _overlappingObjects)
             {
-                // prefer assigned source, fall back to the one we obtained/created
-                var src = clickAudioSource != null ? clickAudioSource : _audioSource;
-                if (src != null) src.PlayOneShot(clickSfx);
+                if (obj != null)
+                {
+                    ExecuteKnock(obj);
+                    
+                    // Play sound only once per click, even if hitting multiple items
+                    if (!playedSound)
+                    {
+                        PlayInteractionSound();
+                        playedSound = true;
+                    }
+                }
             }
 
-            // left mouse click also triggers knock on all overlapping trash
-            if (_overlapping.Count > 0)
-            {
-                foreach (var h in _overlapping)
-                {
-                    if (h != null) h.SendOutward(knockSpeedMultiplier);
-                }
-                _overlapping.Clear();
-                if (knockParticleEffect != null) knockParticleEffect.Play();
-            }
+            _overlappingObjects.Clear(); // Clear after knocking
+            if (knockParticleEffect != null) knockParticleEffect.Play();
         }
     }
 
-    private void Start()
+    private void ExecuteKnock(GameObject target)
+{
+    // Try Hander first
+    if (target.TryGetComponent(out Hander h)) 
     {
-        // resolve or create an AudioSource to play click SFX if needed
-        _audioSource = clickAudioSource != null ? clickAudioSource : GetComponent<AudioSource>();
-        if (_audioSource == null && clickSfx != null)
+        h.ReceiveClick(); 
+    }
+    // Try CigaretEel second
+    else if (target.TryGetComponent(out CigaretEel e)) 
+    {
+        e.ReceiveClick(); 
+    }
+    // Try CartenCrab last
+    else if (target.TryGetComponent(out CartenCrab c))
+    {
+        // Assuming you add ReceiveClick to CartenCrab too
+        // c.ReceiveClick(); 
+    }
+}
+
+    private void PlayInteractionSound()
+    {
+        if (clickSfx != null)
         {
-            _audioSource = gameObject.AddComponent<AudioSource>();
-            _audioSource.playOnAwake = false;
+            var src = clickAudioSource != null ? clickAudioSource : _internalAudioSource;
+            if (src != null) src.PlayOneShot(clickSfx);
         }
     }
 }
