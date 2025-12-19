@@ -7,47 +7,36 @@ public class Stopwatch : MonoBehaviour
         private float highestTime = 0f;
         [SerializeField] private TextMeshProUGUI timerDisplay;
         [Tooltip("Optional reference to the Death Panel GameObject. When active, the stopwatch will pause so the final time is shown.")]
-        public GameObject deathPanel;    void Start()
-    {
-        elapsedTime = 0f;
+        public GameObject deathPanel;    
+        void Start()
+{
+    elapsedTime = 0f;
+    
+    // CHANGE: Load the saved high score from the computer's memory
+    highestTime = PlayerPrefs.GetFloat("HighScore", 0f);
 
-        // try to find a DeathPanel if one wasn't assigned in the Inspector
-        if (deathPanel == null)
-        {
-            var found = GameObject.Find("DeathPanel");
-            if (found != null) deathPanel = found;
-            else
-            {
-                var d = FindObjectOfType<DeathPanelBGM>();
-                if (d != null && d.deathPanel != null) deathPanel = d.deathPanel;
-            }
-        }
+    // ... (rest of your existing Start logic)
+}
+
+void Update()
+{
+    // ... (rest of your existing Update logic)
+
+    elapsedTime += Time.deltaTime;
+
+    if (elapsedTime > highestTime)
+    {
+        highestTime = elapsedTime;
+        // CHANGE: Save the new record immediately to the disk
+        PlayerPrefs.SetFloat("HighScore", highestTime);
     }
 
-    void Update()
+    if (timerDisplay != null)
     {
-        // Only start counting after countdown is complete
-        if (!CountdownTimer.isCountdownComplete)
-            return;
-
-        // If the death panel is active, stop increasing elapsed time so the final
-        // survived time remains on-screen.
-        if (deathPanel != null && deathPanel.activeSelf)
-            return;
-
-        elapsedTime += Time.deltaTime;
-
-        // track the highest time reached
-        if (elapsedTime > highestTime)
-        {
-            highestTime = elapsedTime;
-        }
-
-        if (timerDisplay != null)
-        {
-            timerDisplay.text = $"Time: {elapsedTime:F2}s";
-        }
+        // CHANGE: Simplified to seconds only
+        timerDisplay.text = $"Time: {elapsedTime:F1}s"; 
     }
+}
 
     public float GetElapsedTime()
     {
@@ -69,29 +58,34 @@ public class Stopwatch : MonoBehaviour
         textField.text = GetFormattedElapsedTime("Time Survived: ");
     }
 
-    // Returns a formatted string in minute:seconds (with 2 decimal places for seconds, no suffix).
-    // Example: "1:23.45"
-    public string GetFormattedElapsedTime(string prefix = "")
-    {
-        int minutes = (int)elapsedTime / 60;
-        float seconds = elapsedTime % 60f;
-        string secondsText = seconds.ToString("00.00");
-        return $"{prefix}{minutes}:{secondsText}";
-    }
+    // CHANGE: Replace your formatting method to use seconds only
+public string GetFormattedElapsedTime(string prefix = "")
+{
+    return $"{prefix}{elapsedTime:F1}s";
+}
 
-    // Returns a formatted string for the highest time reached in minute:seconds format (no suffix).
-    // Example: "1:23.45"
-    public string GetFormattedHighestTime(string prefix = "")
-    {
-        int minutes = (int)highestTime / 60;
-        float seconds = highestTime % 60f;
-        string secondsText = seconds.ToString("00.00");
-        return $"{prefix}{minutes}:{secondsText}";
-    }
+public string GetFormattedHighestTime(string prefix = "")
+{
+    return $"{prefix}{highestTime:F1}s";
+}
 
     public void Reset()
     {
         elapsedTime = 0f;
         // Note: highestTime is NOT reset, so it persists across level restarts
     }
+
+    public void SaveToTotalTime()
+{
+    // Get what is already saved, or 0 if it's the first time
+    float totalSoFar = PlayerPrefs.GetFloat("TotalPlayTime", 0f);
+    
+    // Add the current run's time to the total
+    float newTotal = totalSoFar + elapsedTime;
+    
+    // Save it back to the disk
+    PlayerPrefs.SetFloat("TotalPlayTime", newTotal);
+    PlayerPrefs.Save();
+}
+
 }
