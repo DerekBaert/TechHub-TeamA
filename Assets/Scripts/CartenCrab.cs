@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CartenCrab : MonoBehaviour
+public class CartenCrab : MonoBehaviour, ISpawnable
 {
     // --- STATIC REFERENCE: Ensures only one crab exists at a time ---
     private static CartenCrab _activeInstance;
@@ -22,6 +22,7 @@ public class CartenCrab : MonoBehaviour
     private float _spawnTimer;
     private bool _isActive;
     private float _relocationTimer = 0f;
+    private int _currentClicks = 0;
 
     private Transform homeTransform;
     private Transform targetTransform; 
@@ -103,20 +104,23 @@ public class CartenCrab : MonoBehaviour
     }
 
     public void ReceiveClick()
-    {
-        if (!_isActive || isOutbound) return;
+{
+    if (!_isActive || isOutbound) return;
 
-        _clickCount++;
-        if (_clickCount >= maxClicks)
-        {
-            SendOutward(1.5f);
-            _clickCount = 0; 
-        }
-        else
-        {
-            RelocateInCameraView();
-        }
+    _currentClicks++;
+
+    // NEW: Add to combo when clicked
+    if (LevelManager.instance != null)
+    {
+        LevelManager.instance.AddCombo();
     }
+
+    if (_currentClicks >= maxClicks)
+    {
+        SendOutward(1.5f); 
+        _currentClicks = 0; 
+    }
+}
 
     public void SendTowardTarget(Transform newTarget)
     {

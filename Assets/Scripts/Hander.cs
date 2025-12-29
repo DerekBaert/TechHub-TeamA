@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Hander : MonoBehaviour
+public class Hander : MonoBehaviour, ISpawnable
 {
     [SerializeField] private float moveSpeed = 20f;
     
@@ -17,7 +17,6 @@ public class Hander : MonoBehaviour
     [SerializeField] private string homeBaseTag = "HomeBase";
     public AudioClip impactSfx;
     [Range(0f, 1f)] public float impactSfxVolume = 1f;
-
     private static float _gameStartTime = -1f;
     private float _initialSpeed;
     private Camera _mainCam;
@@ -59,6 +58,8 @@ public class Hander : MonoBehaviour
 
     void Update()
     {
+        // If the game is over, stop moving
+        if (LevelManager.instance != null && LevelManager.instance.isGameOver) return;
         UpdateSpeedBasedOnTime();
 
         if (!_isActive)
@@ -86,6 +87,12 @@ public void ReceiveClick()
 
     _currentClicks++;
 
+    // NEW: Add to combo when clicked
+    if (LevelManager.instance != null)
+    {
+        LevelManager.instance.AddCombo();
+    }
+
     if (_currentClicks >= maxClicks)
     {
         SendOutward(1.5f); 
@@ -101,11 +108,18 @@ private void OnMouseDown()
 }
 
     private void UpdateSpeedBasedOnTime()
-    {
-        float timePassed = Time.time - _gameStartTime;
-        int twoMinuteIntervals = Mathf.FloorToInt(timePassed / 120f);
-        moveSpeed = _initialSpeed * Mathf.Pow(2, twoMinuteIntervals);
-    }
+{
+    float timePassed = Time.time - _gameStartTime;
+    
+    // Linear Scaling: Increase speed by 10% every minute
+    // This is much smoother than doubling it!
+    float speedMultiplier = 1f + (timePassed / 60f) * 0.1f;
+    
+    // Cap the max speed so it never becomes "teleporting" fast
+    float maxSpeed = _initialSpeed * 3f; 
+    
+    moveSpeed = Mathf.Min(_initialSpeed * speedMultiplier, maxSpeed);
+}
 
     private void CheckBounds()
     {

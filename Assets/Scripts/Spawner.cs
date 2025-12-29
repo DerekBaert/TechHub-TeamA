@@ -40,30 +40,27 @@ public class Spawner : MonoBehaviour
     }
 
     private void SpawnOne()
+{
+    WeightedTrash selectedData = GetWeightedRandomItem();
+    if (selectedData == null || selectedData.prefab == null) return;
+
+    Vector2 randomCirclePoint = Random.insideUnitCircle * spawnRadius;
+    Vector3 spawnPos = transform.position + new Vector3(randomCirclePoint.x, randomCirclePoint.y, 0f);
+
+    Quaternion spawnRot = randomizeRotation 
+        ? Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)) 
+        : transform.rotation;
+
+    GameObject spawned = Instantiate(selectedData.prefab, spawnPos, spawnRot);
+
+    // --- THE NEW CLEAN LOGIC ---
+    // Instead of checking for every specific script name, 
+    // we just ask: "Do you follow the ISpawnable contract?"
+    if (spawned.TryGetComponent(out ISpawnable spawnable))
     {
-        // 1. Get the random weighted item data
-        WeightedTrash selectedData = GetWeightedRandomItem();
-        if (selectedData == null || selectedData.prefab == null) return;
-
-        // 2. Random Position & Rotation
-        Vector2 randomCirclePoint = Random.insideUnitCircle * spawnRadius;
-        Vector3 spawnPos = transform.position + new Vector3(randomCirclePoint.x, randomCirclePoint.y, 0f);
-
-        Quaternion spawnRot = randomizeRotation 
-            ? Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)) 
-            : transform.rotation;
-
-        GameObject spawned = Instantiate(selectedData.prefab, spawnPos, spawnRot);
-
-        // 3. APPLY THE SPECIFIC DELAY
-        // We use the delay value defined in the slider for this specific item
-        float delayToApply = selectedData.specificSpawnDelay;
-
-        if (spawned.TryGetComponent(out Hander h)) h.SetSpawnDelay(delayToApply);
-        else if (spawned.TryGetComponent(out CigaretEel e)) e.SetSpawnDelay(delayToApply);
-        else if (spawned.TryGetComponent(out CartenCrab c)) c.SetSpawnDelay(delayToApply);
+        spawnable.SetSpawnDelay(selectedData.specificSpawnDelay);
     }
-
+}
     // Modified to return the whole data object so we can access the delay slider
     private WeightedTrash GetWeightedRandomItem()
     {

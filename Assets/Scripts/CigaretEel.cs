@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CigaretEel : MonoBehaviour
+public class CigaretEel : MonoBehaviour, ISpawnable
 {
     [SerializeField] private float moveSpeed = 10f;
 
@@ -84,18 +84,23 @@ public class CigaretEel : MonoBehaviour
     }
 
     public void ReceiveClick()
+{
+    if (!_isActive || isOutbound) return;
+
+    _currentClicks++;
+
+    // NEW: Add to combo when clicked
+    if (LevelManager.instance != null)
     {
-        // Ignore clicks if spawning or currently in a split pause
-        if (!_isActive || _isSplitting) return;
-
-        _currentClicks++;
-
-        if (_currentClicks >= maxClicks)
-        {
-            Split();
-            _currentClicks = 0;
-        }
+        LevelManager.instance.AddCombo();
     }
+
+    if (_currentClicks >= maxClicks)
+    {
+        SendOutward(1.5f); 
+        _currentClicks = 0; 
+    }
+}
 
     private void Split()
     {
