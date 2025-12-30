@@ -58,6 +58,11 @@ public class Hander : MonoBehaviour, ISpawnable
 
     void Update()
     {
+        // Stop all logic if time is frozen (Paused) or game is over
+        // 1. THIS IS THE MOST IMPORTANT LINE:
+        if (Mathf.Approximately(Time.timeScale, 0)) return;
+    
+        if (LevelManager.instance != null && LevelManager.instance.isGameOver) return;
         // If the game is over, stop moving
         if (LevelManager.instance != null && LevelManager.instance.isGameOver) return;
         UpdateSpeedBasedOnTime();
@@ -100,6 +105,25 @@ public void ReceiveClick()
     }
 }
 
+void FixedUpdate()
+{
+    if (Time.timeScale == 0)
+    {
+        // If using physics, we must freeze the body manually
+        if (TryGetComponent(out Rigidbody2D rb))
+        {
+            rb.simulated = false; // This stops all physics interaction
+        }
+    }
+    else
+    {
+        if (TryGetComponent(out Rigidbody2D rb))
+        {
+            rb.simulated = true;
+        }
+    }
+}
+
 // Keep OnMouseDown so it still works if the player clicks the object directly 
 // without the Melee area overlapping it.
 private void OnMouseDown()
@@ -110,26 +134,26 @@ private void OnMouseDown()
     private void UpdateSpeedBasedOnTime()
 {
     float timePassed = Time.time - _gameStartTime;
-    
-    // Linear Scaling: Increase speed by 10% every minute
-    // This is much smoother than doubling it!
-    float speedMultiplier = 1f + (timePassed / 60f) * 0.1f;
-    
-    // Cap the max speed so it never becomes "teleporting" fast
-    float maxSpeed = _initialSpeed * 3f; 
-    
-    moveSpeed = Mathf.Min(_initialSpeed * speedMultiplier, maxSpeed);
+    // Increase speed by 5% every 30 seconds instead of doubling every 2 mins
+    float growthFactor = (timePassed / 30f) * 0.05f; 
+    moveSpeed = _initialSpeed * (1f + growthFactor);
 }
 
     private void CheckBounds()
+{
+    if (_mainCam == null) return;
+    Vector3 viewPos = _mainCam.WorldToViewportPoint(transform.position);
+
+    // Only destroy if it is "Outbound" (moving away) and off-screen.
+    // This prevents newly spawned trash from being deleted instantly.
+    if (isOutbound)
     {
-        if (_mainCam == null) return;
-        Vector3 viewPos = _mainCam.WorldToViewportPoint(transform.position);
-        if (viewPos.x < -0.5f || viewPos.x > 1.5f || viewPos.y < -0.5f || viewPos.y > 1.5f)
+        if (viewPos.x < -0.8f || viewPos.x > 1.8f || viewPos.y < -0.8f || viewPos.y > 1.8f)
         {
             Destroy(gameObject);
         }
     }
+}
 
     public void SetSpawnDelay(float delay)
     {

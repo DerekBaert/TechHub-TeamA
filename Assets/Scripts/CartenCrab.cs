@@ -76,6 +76,11 @@ public class CartenCrab : MonoBehaviour, ISpawnable
 
     void Update()
     {
+        // Stop all logic if time is frozen (Paused) or game is over
+        // 1. THIS IS THE MOST IMPORTANT LINE:
+        if (Mathf.Approximately(Time.timeScale, 0)) return;
+    
+        if (LevelManager.instance != null && LevelManager.instance.isGameOver) return;
         if (!_isActive)
         {
             _spawnTimer -= Time.deltaTime;

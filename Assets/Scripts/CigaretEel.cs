@@ -51,6 +51,11 @@ public class CigaretEel : MonoBehaviour, ISpawnable
 
     void Update()
     {
+        // Stop all logic if time is frozen (Paused) or game is over
+        // 1. THIS IS THE MOST IMPORTANT LINE:
+        if (Mathf.Approximately(Time.timeScale, 0)) return;
+    
+        if (LevelManager.instance != null && LevelManager.instance.isGameOver) return;
         // Handle Initial Spawn Delay
         if (!_isActive)
         {

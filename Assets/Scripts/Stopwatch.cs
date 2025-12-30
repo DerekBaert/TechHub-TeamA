@@ -11,29 +11,29 @@ public class Stopwatch : MonoBehaviour
         void Start()
 {
     elapsedTime = 0f;
-    
-    // CHANGE: Load the saved high score from the computer's memory
     highestTime = PlayerPrefs.GetFloat("HighScore", 0f);
+    
+    // Update the HUD immediately
+    if (timerDisplay != null)
+        timerDisplay.text = $"Time: 0.0s";
 
-    // ... (rest of your existing Start logic)
+    Debug.Log($"Session Started. Personal Best to beat: {highestTime:F1}s");
 }
 
 void Update()
 {
-    // ... (rest of your existing Update logic)
-
+    // If time is 0, exit the function immediately
+    if (Time.timeScale == 0) return;
     elapsedTime += Time.deltaTime;
-
+    // We still update the variable so the UI knows it's a new record, 
+    // but we STOP saving to PlayerPrefs here.
     if (elapsedTime > highestTime)
     {
         highestTime = elapsedTime;
-        // CHANGE: Save the new record immediately to the disk
-        PlayerPrefs.SetFloat("HighScore", highestTime);
     }
 
     if (timerDisplay != null)
     {
-        // CHANGE: Simplified to seconds only
         timerDisplay.text = $"Time: {elapsedTime:F1}s"; 
     }
 }
@@ -75,16 +75,20 @@ public string GetFormattedHighestTime(string prefix = "")
         // Note: highestTime is NOT reset, so it persists across level restarts
     }
 
-    public void SaveToTotalTime()
+   public void SaveToTotalTime()
 {
-    // Get what is already saved, or 0 if it's the first time
+    // 1. Save Total Play Time
     float totalSoFar = PlayerPrefs.GetFloat("TotalPlayTime", 0f);
+    PlayerPrefs.SetFloat("TotalPlayTime", totalSoFar + elapsedTime);
     
-    // Add the current run's time to the total
-    float newTotal = totalSoFar + elapsedTime;
-    
-    // Save it back to the disk
-    PlayerPrefs.SetFloat("TotalPlayTime", newTotal);
+    // 2. Save High Score (Only happens once here!)
+    float savedHigh = PlayerPrefs.GetFloat("HighScore", 0f);
+    if (highestTime > savedHigh)
+    {
+        PlayerPrefs.SetFloat("HighScore", highestTime);
+    }
+
+    // Write everything to disk at once
     PlayerPrefs.Save();
 }
 

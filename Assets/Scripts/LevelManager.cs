@@ -191,6 +191,11 @@ public void TriggerSurvivalReward()
     public void GameOver()
 {
     isGameOver = true;
+    Time.timeScale = 0; // Freeze the world!
+
+    // IMPORTANT: Hide the HUD timer so it doesn't stay on screen
+    // If you have a reference to the gameplay timer object:
+    // if (hudTimerObject != null) hudTimerObject.SetActive(false);
 
     // 1. Handle Trap/Timer UI
     if (crabTrapParent != null) crabTrapParent.SetActive(false);

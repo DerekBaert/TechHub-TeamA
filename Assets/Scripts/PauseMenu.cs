@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
+        Debug.Log("Time Scale is now ZERO"); // Check your console when you pause!
     }
 
     public void Home()
@@ -28,4 +29,22 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1;
     }
+    void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Escape))
+    {
+        if (pauseMenu.activeSelf)
+        {
+            Resume();
+        }
+        else
+        {
+            // Don't allow pausing if the player is already dead
+            if (LevelManager.instance != null && !LevelManager.instance.isGameOver)
+            {
+                Pause();
+            }
+        }
+    }
+}
 }

@@ -25,40 +25,28 @@ public class Spawner : MonoBehaviour
 
     private float _timeTillNextSpawn = 0f;
 
-    void Update()
-    {
-        if (itemsToSpawn == null || itemsToSpawn.Count == 0) return;
-
-        if (_timeTillNextSpawn > 0f)
-        {
-            _timeTillNextSpawn -= Time.deltaTime;
-            return;
-        }
-
-        SpawnOne();
-        _timeTillNextSpawn = spawnInterval; 
-    }
-
-    private void SpawnOne()
+    public void ManualSpawn() 
 {
+    // 1. Pick the item
     WeightedTrash selectedData = GetWeightedRandomItem();
     if (selectedData == null || selectedData.prefab == null) return;
 
+    // 2. Define spawnPos (This fixes Error 1)
     Vector2 randomCirclePoint = Random.insideUnitCircle * spawnRadius;
     Vector3 spawnPos = transform.position + new Vector3(randomCirclePoint.x, randomCirclePoint.y, 0f);
 
+    // 3. Define spawnRot (This fixes Error 2)
     Quaternion spawnRot = randomizeRotation 
         ? Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)) 
         : transform.rotation;
 
+    // 4. Create the object
     GameObject spawned = Instantiate(selectedData.prefab, spawnPos, spawnRot);
 
-    // --- THE NEW CLEAN LOGIC ---
-    // Instead of checking for every specific script name, 
-    // we just ask: "Do you follow the ISpawnable contract?"
-    if (spawned.TryGetComponent(out ISpawnable spawnable))
+    // 5. Apply the delay
+    if (spawned.TryGetComponent(out ISpawnable s)) 
     {
-        spawnable.SetSpawnDelay(selectedData.specificSpawnDelay);
+        s.SetSpawnDelay(selectedData.specificSpawnDelay);
     }
 }
     // Modified to return the whole data object so we can access the delay slider
