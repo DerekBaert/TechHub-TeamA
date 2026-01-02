@@ -58,15 +58,16 @@ private int _lastDifficultyLevel = 0;
     // Smoothly scale back to normal size
     comboText.transform.localScale = Vector3.Lerp(comboText.transform.localScale, Vector3.one, Time.deltaTime * 10f);
 }
-// This smoothly brings time back to normal speed
-    if (Time.timeScale < 1f && !isGameOver)
+// ONLY recover time if timeScale is NOT zero (not paused) 
+    // and not game over
+    if (Time.timeScale > 0f && Time.timeScale < 1f && !isGameOver)
     {
         Time.timeScale += (1f / 0.5f) * Time.unscaledDeltaTime;
         Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
         
-        // Keep fixedDeltaTime in sync with timeScale for smooth physics
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
     }
+    
     CheckDifficultyIncrease();
 }
 
