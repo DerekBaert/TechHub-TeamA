@@ -42,11 +42,11 @@ public class CrabTrapWorld : MonoBehaviour
         }
     }
 
-    void OnDestroy()
-    {
-        // notify UI that one placed trap was removed so another can be placed
-        CrabTrap.NotifyPlacedDestroyed();
-    }
+    private void OnDestroy()
+{
+    // This is vital to free up the "Static" slot we used!
+    CrabTrap.NotifyPlacedDestroyed();
+}
 
     void OnDrawGizmosSelected()
     {

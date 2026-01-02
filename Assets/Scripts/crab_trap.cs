@@ -9,12 +9,9 @@ public class CrabTrap : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Canvas canvas;
     private RectTransform rectTransform;
     private Vector2 offset;
-
-    // remember original UI slot position so template returns after drag/place
     private Vector2 _originalAnchoredPos;
 
     [Header("Placed world prefab")]
-    [Tooltip("Prefab that will be instantiated in world space when placing a trap. Must have CrabTrapWorld, Collider2D (Is Trigger) and visuals.")]
     [SerializeField] private GameObject placedTrapPrefab;
 
     [Header("Trap mechanics")]
@@ -22,60 +19,78 @@ public class CrabTrap : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     [SerializeField] private int maxTrashCapacity = 5;
 
     [Header("Limits")]
-    [Tooltip("How many traps can exist in the world at once.")]
     [SerializeField] private int maxActivePlaced = 2;
     private static int s_activePlacedCount = 0;
 
-    [Header("Cooldown")]
-    [SerializeField] private float cooldownDuration = 15f;
-    private float _cooldownTimer = 0f;
-    private bool _isOnCooldown = false;
+    [Header("Charges System")]
+    [SerializeField] private int maxCharges = 2;
+    private int _currentCharges = 0; 
+    [SerializeField] private float restockDuration = 15f;
+    private float _restockTimer = 0f;
 
-    // THIS IS THE LINE THE ERROR IS ASKING FOR:
-    public bool IsOnCooldown => _isOnCooldown;
-
-    [Header("Initial global lock (seconds after level load)")]
+    [Header("Initial global lock")]
     [SerializeField] private float initialLockDuration = 15f;
 
+    public bool IsOnCooldown => _currentCharges <= 0;
+    public int CurrentCharges => _currentCharges;
+
+    public float GetRestockTimeRemaining()
+{
+    if (_currentCharges >= maxCharges) return 0f;
+    return restockDuration - _restockTimer;
+}
+
+void Start() 
+{
+    // Reset static count on level start to prevent "ghost" traps from previous runs
+    s_activePlacedCount = 0;
+}
+
+    private CanvasGroup canvasGroup;
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
-
-        if (rectTransform != null)
-        {
-            _originalAnchoredPos = rectTransform.anchoredPosition;
-        }
-
-        // REGISTER: Tell the manager this trap exists
+        if (rectTransform != null) _originalAnchoredPos = rectTransform.anchoredPosition;
         TrapManager.RegisterTrap(this);
+        canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
     }
 
-    void OnDestroy()
-    {
-        // UNREGISTER: Cleanup when the trap/scene is destroyed
-        TrapManager.UnregisterTrap(this);
-    }
+    void OnDestroy() => TrapManager.UnregisterTrap(this);
 
     void Update()
     {
-        if (_isOnCooldown)
+        // 1. If we are in the initial lock period, keep charges at 0
+        if (Time.timeSinceLevelLoad < initialLockDuration)
         {
-            _cooldownTimer -= Time.deltaTime;
-            if (_cooldownTimer <= 0f)
+            _currentCharges = 0;
+            return;
+        }
+
+        // 2. Just finished initial lock? Fill charges immediately
+        if (_currentCharges == 0 && _restockTimer == 0 && Time.timeSinceLevelLoad >= initialLockDuration)
+        {
+            _currentCharges = maxCharges;
+        }
+
+        // 3. Handle Restocking
+        if (_currentCharges < maxCharges)
+        {
+            _restockTimer += Time.deltaTime;
+            if (_restockTimer >= restockDuration)
             {
-                _isOnCooldown = false;
-                _cooldownTimer = 0f;
+                _currentCharges++;
+                _restockTimer = 0f;
             }
         }
     }
 
-    // Static helpers used by world traps to update active count
+    // Static helpers
     public static bool CanPlaceMore() => s_activePlacedCount < InstanceMaxPlaced();
     public static void NotifyPlacedSpawned() { s_activePlacedCount++; }
     public static void NotifyPlacedDestroyed() { s_activePlacedCount = Mathf.Max(0, s_activePlacedCount - 1); }
 
-    // read back max (using a template instance if present) so static CanPlaceMore can check limit
     private static int InstanceMaxPlaced()
     {
         var any = FindObjectOfType<CrabTrap>();
@@ -84,102 +99,77 @@ public class CrabTrap : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     private bool IsInitiallyLocked() => Time.timeSinceLevelLoad < initialLockDuration;
 
-    // Click to place (also supports drag placement)
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        TryPlaceAtScreenPosition(eventData.position);
-    }
+    public void OnPointerClick(PointerEventData eventData) => TryPlaceAtScreenPosition(eventData.position);
 
     public void OnBeginDrag(PointerEventData eventData)
-    {
-        if (_isOnCooldown || IsInitiallyLocked()) return;
-        if (canvas == null) return;
+{
+    if (IsOnCooldown || IsInitiallyLocked() || canvas == null) return;
+    
+    // NEW: Allow the mouse to "see through" this icon while dragging
+    canvasGroup.blocksRaycasts = false; 
+    canvasGroup.alpha = 0.6f; // Optional: make it slightly transparent
 
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvas.transform as RectTransform,
-            eventData.position,
-            eventData.pressEventCamera,
-            out Vector2 localPoint
-        );
-        offset = rectTransform.anchoredPosition - localPoint;
-    }
+    RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localPoint);
+    offset = rectTransform.anchoredPosition - localPoint;
+}
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (_isOnCooldown || IsInitiallyLocked()) return;
-        if (canvas == null) return;
-
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvas.transform as RectTransform,
-            eventData.position,
-            eventData.pressEventCamera,
-            out Vector2 localPoint
-        );
+        if (IsOnCooldown || IsInitiallyLocked() || canvas == null) return;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localPoint);
         rectTransform.anchoredPosition = localPoint + offset;
     }
 
     public void OnEndDrag(PointerEventData eventData)
-    {
-        if (_isOnCooldown || IsInitiallyLocked()) 
-        {
-            // ensure template returns to original slot if locked/cancelled
-            ReturnTemplateToSlot();
-            return;
-        }
+{
+    // NEW: Turn raycasts back on so we can click it again later
+    canvasGroup.blocksRaycasts = true;
+    canvasGroup.alpha = 1.0f;
 
-        // place world trap at mouse position when dropping the template
-        TryPlaceAtScreenPosition(eventData.position);
+    if (IsOnCooldown || IsInitiallyLocked()) { ReturnTemplateToSlot(); return; }
+    
+    TryPlaceAtScreenPosition(eventData.position);
+    ReturnTemplateToSlot();
+}
 
-        // always return the UI template to its original slot after drag
-        ReturnTemplateToSlot();
-    }
-
-    private void ReturnTemplateToSlot()
-    {
-        if (rectTransform != null)
-            rectTransform.anchoredPosition = _originalAnchoredPos;
-    }
+    private void ReturnTemplateToSlot() { if (rectTransform != null) rectTransform.anchoredPosition = _originalAnchoredPos; }
 
     private bool IsTemplateAndPlaceAllowed()
-    {
-        if (!isTemplate) return false;
-        if (IsInitiallyLocked()) return false;
-        if (_isOnCooldown) return false;
-        if (s_activePlacedCount >= maxActivePlaced) return false;
-        return true;
-    }
+{
+    // Remove the s_activePlacedCount check from here
+    if (!isTemplate || IsInitiallyLocked() || _currentCharges <= 0) return false;
+    return true;
+}
 
     private void TryPlaceAtScreenPosition(Vector2 screenPos)
+{
+    // If the static count got stuck, this is a safety reset if you have no traps in scene
+    if (FindObjectsOfType<CrabTrapWorld>().Length == 0) s_activePlacedCount = 0;
+
+    if (IsTemplateAndPlaceAllowed())
     {
-        // guard: ensure template remains in UI and we only spawn a single world prefab per drop
-        if (!_isOnCooldown && IsTemplateAndPlaceAllowed())
+        if (s_activePlacedCount >= maxActivePlaced) 
         {
-            if (placedTrapPrefab != null && Camera.main != null)
+            Debug.LogWarning($"LIMIT: {s_activePlacedCount}/{maxActivePlaced}. Cannot place more.");
+            return; 
+        }
+
+        if (placedTrapPrefab != null && Camera.main != null)
+        {
+            float zDist = Mathf.Abs(Camera.main.transform.position.z - transform.position.z);
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, zDist));
+            worldPos.z = 0f;
+
+            GameObject spawned = Instantiate(placedTrapPrefab, worldPos, Quaternion.identity);
+            
+            // Explicitly verify the spawn happened
+            if (spawned != null)
             {
-                // don't allow another placement if limit reached (re-check to avoid race)
-                if (s_activePlacedCount >= maxActivePlaced) return;
-
-                float zDist = Mathf.Abs(Camera.main.transform.position.z - 0f);
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, zDist));
-                worldPos.z = 0f;
-
-                var spawned = Instantiate(placedTrapPrefab, worldPos, Quaternion.identity);
-
-                // configure spawned world trap
-                var world = spawned.GetComponent<CrabTrapWorld>();
-                if (world != null)
-                {
-                    world.SetCapacity(maxTrashCapacity);
-                    world.SetAttractionRadius(attractionRadius);
-                }
-
-                // increment global placed count
-                NotifyPlacedSpawned();
+                NotifyPlacedSpawned(); 
+                _currentCharges--; 
+                Debug.Log("Second Trap Placed Successfully!");
             }
-
-            // start template cooldown so player must wait before reusing this UI slot
-            _isOnCooldown = true;
-            _cooldownTimer = cooldownDuration;
         }
     }
+}
 }

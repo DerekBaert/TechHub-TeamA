@@ -235,6 +235,10 @@ PrefabInstance:
       value: CrabTrapWorld
       objectReference: {fileID: 0}
     - target: {fileID: 6695498323096166448, guid: 8e719e7d3818f544ab0483979ff25601, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6695498323096166448, guid: 8e719e7d3818f544ab0483979ff25601, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -481,7 +485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &134197276
 RectTransform:
   m_ObjectHideFlags: 0
@@ -498,7 +502,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 152, y: -153}
+  m_AnchoredPosition: {x: 150, y: -163}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &134197277
@@ -515,7 +519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -821,11 +825,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 129632616153310328, guid: d4f4af77d7ee0f446bf89dd19634f6f6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 152
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 129632616153310328, guid: d4f4af77d7ee0f446bf89dd19634f6f6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -153
+      value: -163
       objectReference: {fileID: 0}
     - target: {fileID: 129632616153310328, guid: d4f4af77d7ee0f446bf89dd19634f6f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -840,12 +844,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1746343566771453900, guid: d4f4af77d7ee0f446bf89dd19634f6f6, type: 3}
+      propertyPath: maxCharges
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1746343566771453900, guid: d4f4af77d7ee0f446bf89dd19634f6f6, type: 3}
       propertyPath: trapPrefab
       value: 
       objectReference: {fileID: 4061664049910633462, guid: d4f4af77d7ee0f446bf89dd19634f6f6, type: 3}
     - target: {fileID: 1746343566771453900, guid: d4f4af77d7ee0f446bf89dd19634f6f6, type: 3}
       propertyPath: maxActivePlaced
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4061664049910633462, guid: d4f4af77d7ee0f446bf89dd19634f6f6, type: 3}
       propertyPath: m_Name
@@ -854,7 +862,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4061664049910633462, guid: d4f4af77d7ee0f446bf89dd19634f6f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 542637462}
   m_SourcePrefab: {fileID: 100100000, guid: d4f4af77d7ee0f446bf89dd19634f6f6, type: 3}
 --- !u!224 &298568297 stripped
 RectTransform:
@@ -1457,6 +1468,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3f0ec1eb0fb8bc40a7fb209ae4379fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthBar
+--- !u!1 &542637457 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4061664049910633462, guid: d4f4af77d7ee0f446bf89dd19634f6f6, type: 3}
+  m_PrefabInstance: {fileID: 298568296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &542637459 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1746343566771453900, guid: d4f4af77d7ee0f446bf89dd19634f6f6, type: 3}
+  m_PrefabInstance: {fileID: 298568296}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542637457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9718f24312a1fc0458fdf6303365afd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::crab_trap
+--- !u!225 &542637462
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542637457}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &544558328 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1142281596764603871, guid: 502f2dcecae14c44b9d6c702d4d69ed4, type: 3}
@@ -2063,7 +2102,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -296.00003, y: 120.00004}
+  m_AnchoredPosition: {x: -296, y: 142.00003}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &813663837
@@ -7912,7 +7951,7 @@ GameObject:
   - component: {fileID: 1219017709}
   - component: {fileID: 1219017712}
   - component: {fileID: 1219017711}
-  - component: {fileID: 1219017710}
+  - component: {fileID: 1219017713}
   m_Layer: 5
   m_Name: number of traps
   m_TagString: Untagged
@@ -7936,23 +7975,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: -145}
+  m_AnchoredPosition: {x: 300, y: -188}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1219017710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219017708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d810bb4b15405d44280a07bce1fc4282, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  trapsText: {fileID: 1219017711}
-  initialLockDuration: 30
 --- !u!114 &1219017711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7973,7 +7998,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Crab Traps Available: 0'
+  m_text: Crab Traps
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8007,8 +8032,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -8052,6 +8077,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219017708}
   m_CullTransparentMesh: 1
+--- !u!114 &1219017713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219017708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e8b46317b81424cb39e74bf214fe84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrabTrapUI
+  trapSource: {fileID: 542637459}
+  statusText: {fileID: 1764954715}
 --- !u!1 &1301668957
 GameObject:
   m_ObjectHideFlags: 0
@@ -10008,7 +10047,6 @@ GameObject:
   - component: {fileID: 1764954713}
   - component: {fileID: 1764954716}
   - component: {fileID: 1764954715}
-  - component: {fileID: 1764954714}
   m_Layer: 5
   m_Name: cooldown time
   m_TagString: Untagged
@@ -10032,23 +10070,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 302.00003, y: -86}
+  m_AnchoredPosition: {x: 299.99997, y: -138}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1764954714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764954712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86def1b1b7a4bd2448ec65a5c9ce3b63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  cooldownText: {fileID: 1764954715}
-  initialCountdown: 30
 --- !u!114 &1764954715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10103,8 +10127,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -11815,7 +11839,7 @@ PrefabInstance:
       objectReference: {fileID: 2025538002}
     - target: {fileID: 3871577760179813332, guid: a1a89fe6619135349a96dc8b098e8cba, type: 3}
       propertyPath: itemsToSpawn.Array.data[0].weight
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3871577760179813332, guid: a1a89fe6619135349a96dc8b098e8cba, type: 3}
       propertyPath: itemsToSpawn.Array.data[1].prefab
@@ -12132,7 +12156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6879616650255166273, guid: fb5be6ee29bc0874fb0f523e9eb7957f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 170
+      value: 192
       objectReference: {fileID: 0}
     - target: {fileID: 7927943289042100131, guid: fb5be6ee29bc0874fb0f523e9eb7957f, type: 3}
       propertyPath: m_Maskable
