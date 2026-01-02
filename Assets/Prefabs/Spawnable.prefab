@@ -133,8 +133,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   moveSpeed: 1.25
-  cutOffBottom: -30
-  cutOffTop: 30
+  maxClicks: 1
+  damageAmount: 1
+  homeBaseTag: HomeBase
 --- !u!61 &2583202210395909283
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -348,8 +349,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   moveSpeed: 0.75
-  cutOffBottom: -30
-  cutOffTop: 30
+  maxClicks: 1
+  damageAmount: 1
+  homeBaseTag: HomeBase
 --- !u!61 &8361109387480584946
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -529,8 +531,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   moveSpeed: 1
-  cutOffBottom: -30
-  cutOffTop: 30
+  maxClicks: 1
+  damageAmount: 1
+  homeBaseTag: HomeBase
 --- !u!61 &6716870039852660442
 BoxCollider2D:
   m_ObjectHideFlags: 0
