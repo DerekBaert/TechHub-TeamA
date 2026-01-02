@@ -23,7 +23,7 @@ public class CrabTrapWorld : MonoBehaviour
             var h = c.GetComponent<Hander>();
             if (h != null)
             {
-                h.SendTowardTarget(transform);
+                
             }
         }
     }

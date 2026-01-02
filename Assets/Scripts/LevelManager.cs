@@ -6,6 +6,13 @@ using TMPro;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
+    public bool isGameOver = false;
+
+    void Awake()   
+    {
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+    }
 
     [Header("Game State Objects")]
     [Tooltip("The parent object of the Crab Trap to be disabled on death.")]
@@ -27,8 +34,6 @@ private int _lastDifficultyLevel = 0;
     [Header("Slow Motion Settings")]
     [SerializeField] private float slowMoFactor = 0.05f; // How slow time goes (0.05 is very slow)
     [SerializeField] private float slowMoDuration = 0.1f; // How long it stays slow
-
-    [HideInInspector] public bool isGameOver = false;
 
     [SerializeField] private TextMeshProUGUI comboText;
 
@@ -181,12 +186,6 @@ public void TriggerSurvivalReward()
     CameraShake shaker = Camera.main.GetComponent<CameraShake>();
     if (shaker != null) shaker.Shake(0.5f, 0.4f);
 }
-
-    private void Awake()
-    {
-        if (LevelManager.instance == null) instance = this;
-        else Destroy(gameObject);
-    }
 
     public void GameOver()
 {

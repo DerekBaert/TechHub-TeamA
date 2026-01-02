@@ -6,58 +6,73 @@ public class WeightedTrash
 {
     public GameObject prefab;
     [Range(1, 100)] public int weight = 10;
-    
-    // NEW: Slider for spawn delay specific to this item type
-    [Range(0f, 100f)] public float specificSpawnDelay = 0.5f;
+    [Range(0f, 120f)] public float specificSpawnDelay = 0.5f;
 }
 
 public class Spawner : MonoBehaviour
 {
+    enum SpawnerType { Stationary, Spin, BackAndForth }
+
+    [Header("Movement (The Pro Logic)")]
+    [SerializeField] private SpawnerType spawnerType;
+    [SerializeField] private float spinSpeed = 100f;
+    [SerializeField] private float moveSpeed = 2f;
+    public Transform pos1, pos2;
+    private bool _movingToPos2 = true;
+
     [Header("Trash Configuration")]
     [SerializeField] private List<WeightedTrash> itemsToSpawn;
-    
-    [Header("Fixed Timing")]
-    [SerializeField] private float spawnInterval = 1f;
-
-    [Header("Placement Randomization")]
-    [SerializeField] private float spawnRadius = 5f;
+    [SerializeField] private float spawnRadius = 2f;
     [SerializeField] private bool randomizeRotation = true;
 
-    private float _timeTillNextSpawn = 0f;
-
+    // Triggered by SpawnManager
     public void ManualSpawn() 
-{
-    // 1. Pick the item
-    WeightedTrash selectedData = GetWeightedRandomItem();
-    if (selectedData == null || selectedData.prefab == null) return;
-
-    // 2. Define spawnPos (This fixes Error 1)
-    Vector2 randomCirclePoint = Random.insideUnitCircle * spawnRadius;
-    Vector3 spawnPos = transform.position + new Vector3(randomCirclePoint.x, randomCirclePoint.y, 0f);
-
-    // 3. Define spawnRot (This fixes Error 2)
-    Quaternion spawnRot = randomizeRotation 
-        ? Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)) 
-        : transform.rotation;
-
-    // 4. Create the object
-    GameObject spawned = Instantiate(selectedData.prefab, spawnPos, spawnRot);
-
-    // 5. Apply the delay
-    if (spawned.TryGetComponent(out ISpawnable s)) 
     {
-        s.SetSpawnDelay(selectedData.specificSpawnDelay);
+        WeightedTrash selectedData = GetWeightedRandomItem();
+        if (selectedData == null || selectedData.prefab == null) return;
+
+        Vector2 randomCirclePoint = Random.insideUnitCircle * spawnRadius;
+        Vector3 spawnPos = transform.position + new Vector3(randomCirclePoint.x, randomCirclePoint.y, 0f);
+
+        Quaternion spawnRot = randomizeRotation 
+            ? Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)) 
+            : transform.rotation;
+
+        GameObject spawned = Instantiate(selectedData.prefab, spawnPos, spawnRot);
+
+        if (spawned.TryGetComponent(out ISpawnable s)) 
+        {
+            s.SetSpawnDelay(selectedData.specificSpawnDelay);
+        }
     }
-}
-    // Modified to return the whole data object so we can access the delay slider
+
+    void Update()
+    {
+        if (Time.timeScale == 0) return;
+
+        // Pro Rotation Logic
+        if (spawnerType == SpawnerType.Spin)
+        {
+            transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
+        }
+
+        // Pro Movement Logic
+        if (spawnerType == SpawnerType.BackAndForth && pos1 != null && pos2 != null)
+        {
+            Transform target = _movingToPos2 ? pos2 : pos1;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, target.position) < 0.01f)
+                _movingToPos2 = !_movingToPos2;
+        }
+    }
+
     private WeightedTrash GetWeightedRandomItem()
     {
         int totalWeight = 0;
         foreach (var item in itemsToSpawn) totalWeight += item.weight;
-
         int randomRoll = Random.Range(0, totalWeight);
         int currentWeightSum = 0;
-
         foreach (var item in itemsToSpawn)
         {
             currentWeightSum += item.weight;
@@ -70,5 +85,6 @@ public class Spawner : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, spawnRadius);
+        if(pos1 && pos2) Gizmos.DrawLine(pos1.position, pos2.position);
     }
 }

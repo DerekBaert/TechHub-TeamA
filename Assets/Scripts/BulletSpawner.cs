@@ -1,72 +1,68 @@
-using JetBrains.Annotations;
-using System.Runtime.InteropServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletSpawner : MonoBehaviour
 {
-    enum SpawnerType { Straight, Spin, Backtfourth }
+    enum SpawnerType { Straight, Spin, BackAndForth }
+    
     [Header("Bullet Attributes")]
-    public GameObject bullet;
-    public float bulletLife = 1f; 
-    public float speed = 1f;
-    public Transform pos1, pos2; //This Is for the BackTForth Spawner
-    public Transform StartPos;
-  
-
-    Vector3 nextpos;
+    public GameObject bulletPrefab;
+    public float bulletLife = 2f; 
+    public float bulletSpeed = 5f;
 
     [Header("Spawner Attributes")]
     [SerializeField] private SpawnerType spawnerType;
-    [SerializeField] private float FiringRate = 1f;
+    [SerializeField] private float firingRate = 0.5f;
+    [SerializeField] private float spinSpeed = 100f;
 
-    public GameObject spawnedBullet;
+    [Header("Back and Forth Settings")]
+    public Transform pos1;
+    public Transform pos2;
+    public float moveSpeed = 2f;
+
     private float timer = 0f;
+    private bool movingToPos2 = true;
 
-    void Start()
-    {
-         nextpos = StartPos.position;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime; 
-        if (spawnerType == SpawnerType.Spin) transform.eulerAngles = new Vector3 (0f, 0f, transform.eulerAngles.z+1f);
-        if (timer >= FiringRate)
-        {
-            timer = 0f;
-            Fire();
-
-        }
-        
         timer += Time.deltaTime;
-        if (spawnerType == SpawnerType.Backtfourth);
-        if (timer >= FiringRate)
-           if (transform.position== pos1.position)
+
+        // 1. Handle Spawner Rotation (Spin)
+        if (spawnerType == SpawnerType.Spin)
+        {
+            transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
+        }
+
+        // 2. Handle Spawner Movement (Back and Forth)
+        if (spawnerType == SpawnerType.BackAndForth && pos1 != null && pos2 != null)
+        {
+            Transform target = movingToPos2 ? pos2 : pos1;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, target.position) < 0.01f)
             {
-                nextpos = pos2.position;
+                movingToPos2 = !movingToPos2;
             }
-        if (transform.position == pos2.position)
-        {
-            nextpos = pos1.position;
         }
-       
+
+        // 3. Handle Firing
+        if (timer >= firingRate)
         {
-            timer = 0f;
             Fire();
-
+            timer = 0;
         }
     }
-    private void Fire() {
 
-        if (bullet)
+    void Fire()
+    {
+        if (bulletPrefab)
         {
-            spawnedBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-            spawnedBullet.GetComponent<Bullet>().speed = speed;
-            spawnedBullet.GetComponent<Bullet>().bulletLife = bulletLife;
-            spawnedBullet.transform.rotation = transform.rotation;
+            GameObject b = Instantiate(bulletPrefab, transform.position, transform.rotation);
+            Bullet bulletScript = b.GetComponent<Bullet>();
+            if (bulletScript != null)
+            {
+                bulletScript.speed = bulletSpeed;
+                bulletScript.bulletLife = bulletLife;
+            }
         }
     }
-    }
-    
+}
