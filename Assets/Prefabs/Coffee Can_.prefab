@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   moveSpeed: 0.75
-  maxClicks: 4
+  maxClicks: 3
   damageAmount: 3
   homeBaseTag: HomeBase
 --- !u!61 &7089576158877035856

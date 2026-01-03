@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7330564428001504301}
   - component: {fileID: 6669859038703010358}
   - component: {fileID: 3601649604078565037}
-  - component: {fileID: 6052993453394933309}
   m_Layer: 0
   m_Name: Carten Crab
   m_TagString: TrashObstacle
@@ -134,8 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd9a5df238d626d47a00e59382efe192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  moveSpeed: 1
-  maxClicks: 1
+  moveSpeed: 1.75
+  maxClicks: 3
   damageAmount: 1
   homeBaseTag: HomeBase
 --- !u!61 &6669859038703010358
@@ -196,20 +195,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0e6612003a0494584883e98b37124d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollisonsDemo
---- !u!114 &6052993453394933309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3035917152830244704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5d370266c8c7564c986ec7305cfb6ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  moveSpeed: 1
-  spawnDelay: 53
-  maxClicks: 3
-  relocationDelay: 1
-  minDistanceFromHomeBase: 5

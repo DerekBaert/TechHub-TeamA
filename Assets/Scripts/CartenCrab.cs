@@ -2,185 +2,88 @@ using UnityEngine;
 
 public class CartenCrab : MonoBehaviour, ISpawnable
 {
-    // --- STATIC REFERENCE: Ensures only one crab exists at a time ---
-    private static CartenCrab _activeInstance;
+    [Header("Movement Settings")]
+    [SerializeField] private float forwardSpeed = 1.5f;
+    [SerializeField] private float sideStepSpeed = 4f;
+    [SerializeField] private float stepDuration = 1.2f;
 
-    [SerializeField] private float moveSpeed = 2f;
-
-    [Header("Spawn timing")]
-    public float spawnDelay = 0f;
-
-    [Header("Interaction Settings")]
-    [Tooltip("How many clicks before this crab is sent away.")]
-    [SerializeField] private int maxClicks = 3; 
-    private int _clickCount = 0;
-
-    [Header("Relocation")]
-    public float relocationDelay = 1f;
-    public float minDistanceFromHomeBase = 5f;
-
+    private float _stepTimer;
     private float _spawnTimer;
-    private bool _isActive;
-    private float _relocationTimer = 0f;
-    private int _currentClicks = 0;
+    private bool _isActive = false;
+    private bool _isOutbound = false;
+    private bool _isMovingSideWays = true;
+    private int _sideDirection = 1;
+    private Vector3 _outboundDir;
+    private Transform _home;
 
-    private Transform homeTransform;
-    private Transform targetTransform; 
-    private Vector3 currentDirection;
-    private bool isOutbound = false;
-
-    void Awake()
-    {
-        // SINGLETON CHECK: Destroy duplicate crabs
-        if (_activeInstance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        _activeInstance = this;
+    void Start() {
+        GameObject homeObj = GameObject.FindGameObjectWithTag("HomeBase");
+        if (homeObj != null) _home = homeObj.transform;
+        
+        _sideDirection = Random.value > 0.5f ? 1 : -1;
+        _stepTimer = stepDuration;
     }
 
-    void OnDestroy()
-    {
-        // Clear reference so a new one can spawn later
-        if (_activeInstance == this)
-        {
-            _activeInstance = null;
-        }
-    }
-
-    void Start()
-    {
-        _spawnTimer = spawnDelay;
-        _isActive = _spawnTimer <= 0f;
-
-        var home = GameObject.FindGameObjectWithTag("HomeBase");
-        if (home != null)
-        {
-            homeTransform = home.transform;
-            targetTransform = homeTransform;
-            currentDirection = (targetTransform.position - transform.position).normalized;
-        }
-        else
-        {
-            currentDirection = Vector3.down;
-        }
-    }
-
-    public void SetSpawnDelay(float delay)
-    {
-        spawnDelay = delay;
+    public void SetSpawnDelay(float delay) {
         _spawnTimer = delay;
-        _isActive = _spawnTimer <= 0f;
+        _isActive = (delay <= 0);
     }
 
-    void Update()
-    {
-        // Stop all logic if time is frozen (Paused) or game is over
-        // 1. THIS IS THE MOST IMPORTANT LINE:
-        if (Mathf.Approximately(Time.timeScale, 0)) return;
-    
-        if (LevelManager.instance != null && LevelManager.instance.isGameOver) return;
-        if (!_isActive)
-        {
-            _spawnTimer -= Time.deltaTime;
-            if (_spawnTimer <= 0f) _isActive = true;
-            else return;
-        }
+    void Update() {
+        if (Time.timeScale == 0) return;
 
-        if (_relocationTimer > 0)
-        {
-            _relocationTimer -= Time.deltaTime;
+        if (!_isActive) {
+            _spawnTimer -= Time.deltaTime;
+            if (_spawnTimer <= 0) _isActive = true;
             return;
         }
 
-        if (!isOutbound && targetTransform != null)
-        {
-            currentDirection = (targetTransform.position - transform.position).normalized;
+        if (!_isOutbound) {
+            if (_home == null) return;
+            HandleMovement();
+        } else {
+            transform.position += _outboundDir * (sideStepSpeed * 1.5f) * Time.deltaTime;
+            CheckOffscreen();
+        }
+    }
+
+    private void HandleMovement() {
+        _stepTimer -= Time.deltaTime;
+        if (_stepTimer <= 0) {
+            _isMovingSideWays = !_isMovingSideWays;
+            _stepTimer = stepDuration;
         }
 
-        transform.position += currentDirection * moveSpeed * Time.deltaTime;
+        Vector3 forward = (_home.position - transform.position).normalized;
+        if (_isMovingSideWays) {
+            Vector3 side = new Vector3(-forward.y, forward.x, 0);
+            transform.position += side * _sideDirection * sideStepSpeed * Time.deltaTime;
+        } else {
+            transform.position += forward * forwardSpeed * Time.deltaTime;
+        }
     }
 
-    // --- NEW: Universal Click Logic for Melee and Mouse ---
-    void OnMouseDown()
-    {
-        ReceiveClick();
+    public void ReceiveClick() {
+        if (!_isActive || _isOutbound) return;
+        
+        LevelManager.instance?.AddCombo();
+        SendOutward(2.5f);
     }
 
-    public void ReceiveClick()
-{
-    if (!_isActive || isOutbound) return;
-
-    _currentClicks++;
-
-    // NEW: Add to combo when clicked
-    if (LevelManager.instance != null)
-    {
-        LevelManager.instance.AddCombo();
-    }
-
-    if (_currentClicks >= maxClicks)
-    {
-        SendOutward(1.5f); 
-        _currentClicks = 0; 
+    public void SendOutward(float multiplier) {
+    _isOutbound = true;
+    
+    // Safety check: if _home is missing, use Vector3.up as a backup
+    if (_home != null) {
+        _outboundDir = (transform.position - _home.position).normalized;
+    } else {
+        _outboundDir = Vector3.up; 
     }
 }
 
-    public void SendTowardTarget(Transform newTarget)
-    {
-        targetTransform = newTarget;
-        isOutbound = false;
-    }
-
-    public void SendOutward(float speedMultiplier = 1f)
-    {
-        if (homeTransform != null)
-            currentDirection = (transform.position - homeTransform.position).normalized;
-        else
-            currentDirection = Vector3.up;
-
-        moveSpeed *= speedMultiplier;
-        isOutbound = true;
-    }
-
-    void RelocateInCameraView()
-    {
-        Camera cam = Camera.main;
-        if (cam != null)
-        {
-            Vector3 newPosition;
-            int attempts = 0;
-            const int maxAttempts = 10;
-            do
-            {
-                float randomX, randomY;
-                int edge = Random.Range(0, 4); 
-                switch (edge)
-                {
-                    case 0: randomX = Random.Range(0.1f, 0.9f); randomY = Random.Range(0.8f, 1f); break;
-                    case 1: randomX = Random.Range(0.1f, 0.9f); randomY = Random.Range(0f, 0.2f); break;
-                    case 2: randomX = Random.Range(0f, 0.2f); randomY = Random.Range(0.1f, 0.9f); break;
-                    case 3: randomX = Random.Range(0.8f, 1f); randomY = Random.Range(0.1f, 0.9f); break;
-                    default: randomX = 0.5f; randomY = 0.5f; break;
-                }
-
-                Vector3 viewportPoint = new Vector3(randomX, randomY, cam.nearClipPlane);
-                newPosition = cam.ViewportToWorldPoint(viewportPoint);
-                newPosition.z = 0;
-                attempts++;
-            } while (homeTransform != null && Vector3.Distance(newPosition, homeTransform.position) < minDistanceFromHomeBase && attempts < maxAttempts);
-
-            transform.position = newPosition;
-
-            if (homeTransform != null)
-            {
-                targetTransform = homeTransform;
-                currentDirection = (homeTransform.position - transform.position).normalized;
-                isOutbound = false;
-            }
-        }
-
-        _relocationTimer = relocationDelay;
+    private void CheckOffscreen() {
+        Vector2 screenPos = Camera.main.WorldToViewportPoint(transform.position);
+        if (screenPos.x < -0.5f || screenPos.x > 1.5f || screenPos.y < -0.5f || screenPos.y > 1.5f)
+            Destroy(gameObject);
     }
 }

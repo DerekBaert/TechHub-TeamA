@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 125406663063325359}
   - component: {fileID: 2224369918128657413}
   - component: {fileID: 3353612497575363968}
-  - component: {fileID: 764282189899318384}
   m_Layer: 0
   m_Name: Crippled Cigaret Eel
   m_TagString: TrashObstacle
@@ -196,22 +195,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0e6612003a0494584883e98b37124d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollisonsDemo
---- !u!114 &764282189899318384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7476730830568564}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d086ed4a0d88e4745bd9e14d1aa527e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  moveSpeed: 1
-  maxClicks: 1
-  spawnDelay: 63
-  splitDelay: 0.5
-  knockbackDistance: 1.5
-  minScaleToSplit: 0.25
-  splitOffset: 0.5
