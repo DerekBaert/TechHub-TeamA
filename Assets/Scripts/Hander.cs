@@ -72,6 +72,15 @@ public class Hander : MonoBehaviour, ISpawnable
     public void ReceiveClick()
     {
         if (!_isActive || isOutbound) return;
+    
+    _currentClicks++;
+    
+    // SAVE TRASH DATA HERE:
+    int total = PlayerPrefs.GetInt("TotalTrash", 0);
+    PlayerPrefs.SetInt("TotalTrash", total + 1); 
+    PlayerPrefs.Save();
+    LevelManager.instance?.AddCombo();
+        if (!_isActive || isOutbound) return;
         
         _currentClicks++;
         LevelManager.instance?.AddCombo();

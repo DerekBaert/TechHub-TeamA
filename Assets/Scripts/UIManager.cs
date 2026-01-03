@@ -6,6 +6,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject deathPanel;
+    [SerializeField] private string highScoreKey = "HighScore";
 
     [Header("References")]
     public TextMeshProUGUI deathPanelTimerText;
@@ -40,5 +41,25 @@ public class UIManager : MonoBehaviour
         {
             deathPanelTimerText.text = formattedTime;
         }
+       
+        // This saves the raw seconds so the Menu script can format it
+        PlayerPrefs.SetFloat("HighScore", stopwatch.GetCurrentTimeRaw()); 
+        PlayerPrefs.Save();
     }
+    private void SaveFinalTime(string currentFormattedTime)
+{
+    if (stopwatch != null)
+    {
+        float currentTime = stopwatch.GetCurrentTimeRaw(); 
+        float bestTime = PlayerPrefs.GetFloat(highScoreKey, 0f);
+
+        // If the new time is HIGHER (longer survival), save it
+        if (currentTime > bestTime)
+        {
+            PlayerPrefs.SetFloat(highScoreKey, currentTime);
+            PlayerPrefs.Save();
+            Debug.Log("New Best Time Saved: " + currentTime);
+        }
+    }
+}
 }

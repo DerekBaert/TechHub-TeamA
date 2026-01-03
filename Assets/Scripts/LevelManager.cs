@@ -212,7 +212,7 @@ public void TriggerSurvivalReward()
         float best = PlayerPrefs.GetFloat("HighScore", 0f);
 
         // 2. DECLARE Rank and RecordMessage FIRST
-        string rank = (current < 15) ? "BRONZE" : (current < 40) ? "SILVER" : "GOLD";
+        string rank = (current < 60) ? "BRONZE" : (current < 120) ? "SILVER" : "GOLD";
         string recordMessage = "";
 
         if (current >= best) 

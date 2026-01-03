@@ -38,6 +38,13 @@ void Update()
     }
 }
 
+public float GetCurrentTimeRaw()
+{
+    // This should return the float variable you use to track time.
+    // If your variable is named 'currentTime' or 'elapsedTime', use that name here!
+    return elapsedTime; 
+}
+
     public float GetElapsedTime()
     {
         return elapsedTime;

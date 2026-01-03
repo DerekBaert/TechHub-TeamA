@@ -20,18 +20,22 @@ public class StoryManager : MonoBehaviour
     private bool _sequenceFinished = false;
 
     void Start()
-    {
-        // Setup initial state
-        displayImage.sprite = storySprites[0];
-        panelAlpha.alpha = 1;
-        okButton.SetActive(false);
-    }
+{
+    // Ensure time is running so animations and clicks work!
+    Time.timeScale = 1f; 
+
+    displayImage.sprite = storySprites[0];
+    panelAlpha.alpha = 1;
+    okButton.SetActive(false);
+}
 
     void Update()
+{
+    if (Input.GetMouseButtonDown(0))
     {
-        // Advance story on mouse click
-        // Only works if we aren't fading, and haven't reached the tutorial yet
-        if (Input.GetMouseButtonDown(0) && !_isFading && !_sequenceFinished)
+        Debug.Log("Mouse Clicked!"); // This will show up in your Console
+        
+        if (!_isFading && !_sequenceFinished)
         {
             if (_currentIndex < storySprites.Length - 1)
             {
@@ -39,6 +43,7 @@ public class StoryManager : MonoBehaviour
             }
         }
     }
+}
 
     private IEnumerator TransitionToNext()
     {
