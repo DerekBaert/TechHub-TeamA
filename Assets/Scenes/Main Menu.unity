@@ -2563,7 +2563,7 @@ MonoBehaviour:
   timeLimit: 3
   secretSceneIndex: 3
   warningColor: {r: 1, g: 0, b: 0, a: 1}
-  shakeIntensity: 10
+  shakeIntensity: 4
 --- !u!1 &1914564608
 GameObject:
   m_ObjectHideFlags: 0
