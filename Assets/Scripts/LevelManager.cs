@@ -9,10 +9,14 @@ public class LevelManager : MonoBehaviour
     public bool isGameOver = false;
 
     void Awake()   
-    {
-        if (instance == null) instance = this;
-        else Destroy(gameObject);
-    }
+{
+    // THIS IS THE FIX: Restart the clock!
+    Time.timeScale = 1f;
+    Time.fixedDeltaTime = 0.02f; // Resets physics clock too
+
+    if (instance == null) instance = this;
+    else Destroy(gameObject);
+}
 
     [Header("Game State Objects")]
     [Tooltip("The parent object of the Crab Trap to be disabled on death.")]
@@ -26,6 +30,8 @@ public class LevelManager : MonoBehaviour
     public int currentCombo = 0;
     public float comboTimer = 0f;
     public float comboExpiryTime = 1.5f;
+    [SerializeField] private Gradient comboColorGradient; 
+    [SerializeField] private int maxComboForColor = 50; // Color stops changing at this number
 
     [Header("Difficulty Notifications")]
 [SerializeField] private TextMeshProUGUI alertText; // A large text element in the center of the screen
@@ -50,9 +56,27 @@ private int _lastDifficultyLevel = 0;
     }
     // Inside Update() after the timer logic:
     if (comboText != null)
+{
+    if (currentCombo > 1)
     {
-        comboText.text = currentCombo > 1 ? $"COMBO X{currentCombo}" : "";
+        comboText.text = $"COMBO X{currentCombo}";
+        
+        // Calculate how far along the gradient we should be (0.0 to 1.0)
+        float colorProgress = Mathf.Clamp01((float)currentCombo / maxComboForColor);
+        comboText.color = comboColorGradient.Evaluate(colorProgress);
     }
+    else
+    {
+        comboText.text = "";
+    }
+}
+
+if (currentCombo >= 50)
+{
+    // Cycle through colors using Hue, Saturation, and Value
+    comboText.color = Color.HSVToRGB(Mathf.PingPong(Time.time, 1f), 1f, 1f);
+}
+
     if (comboText != null)
 {
     // Smoothly scale back to normal size
@@ -189,51 +213,49 @@ public void TriggerSurvivalReward()
 }
 
     public void GameOver()
-{
-    isGameOver = true;
-    Time.timeScale = 0; // Freeze the world!
-
-    // IMPORTANT: Hide the HUD timer so it doesn't stay on screen
-    // If you have a reference to the gameplay timer object:
-    // if (hudTimerObject != null) hudTimerObject.SetActive(false);
-
-    // 1. Handle Trap/Timer UI
-    if (crabTrapParent != null) crabTrapParent.SetActive(false);
-    // if (hudTimerObject != null) hudTimerObject.SetActive(false); // Enable this if you have the HUD reference
-
-    UIManager _ui = GetComponent<UIManager>();
-    Stopwatch sw = FindObjectOfType<Stopwatch>();
-
-    if (_ui != null && sw != null)
     {
-        sw.SaveToTotalTime();
+        isGameOver = true;
+        Time.timeScale = 0;
 
-        float current = sw.GetElapsedTime();
-        float best = PlayerPrefs.GetFloat("HighScore", 0f);
+        if (crabTrapParent != null) crabTrapParent.SetActive(false);
 
-        // 2. DECLARE Rank and RecordMessage FIRST
-        string rank = (current < 60) ? "BRONZE" : (current < 120) ? "SILVER" : "GOLD";
-        string recordMessage = "";
+        UIManager _ui = GetComponent<UIManager>();
+        Stopwatch sw = FindObjectOfType<Stopwatch>();
+        SpawnManager sm = FindObjectOfType<SpawnManager>();
 
-        if (current >= best) 
+        if (_ui != null && sw != null)
         {
-            recordMessage = "<color=yellow>NEW BEST!</color>\n";
-            PlayerPrefs.SetFloat("HighScore", current);
-            PlayerPrefs.Save();
-            best = current; // Update best so the UI shows the new score
+            sw.SaveToTotalTime();
+
+            float current = sw.GetElapsedTime();
+            float best = PlayerPrefs.GetFloat("HighScore", 0f);
+            int waveReached = (sm != null) ? sm.currentWave : 1;
+
+            // FIX: Declare variables OUTSIDE the if(current >= best) check
+            string rank = (current < 60) ? "BRONZE" : (current < 120) ? "SILVER" : "GOLD";
+            string recordMessage = "";
+
+            if (current >= best) 
+            {
+                recordMessage = "<color=yellow>NEW BEST!</color>\n";
+                PlayerPrefs.SetFloat("HighScore", current);
+                PlayerPrefs.Save();
+                best = current;
+            }
+
+            float multiplier = GetCurrentMultiplier();
+
+            // FIX: One single declaration of finalDisplay
+            string finalDisplay = $"{recordMessage}" +
+                                  $"Rank: {rank}\n" +
+                                  $"Wave Reached: {waveReached}\n" +
+                                  $"Multiplier: {multiplier:F1}x\n" +
+                                  $"Survived: {current:F1}s\n" +
+                                  $"Best: {best:F1}s";
+
+            _ui.ShowDeathPanelWithFormattedTime(finalDisplay);
         }
-
-        // 3. Create the formatted string ONCE
-        float multiplier = GetCurrentMultiplier();
-        string finalDisplay = $"{recordMessage}" +
-                              $"Rank: {rank}\n" +
-                              $"Multiplier: {multiplier:F1}x\n" +
-                              $"Survived: {current:F1}s\n" +
-                              $"Best: {best:F1}s";
-
-        _ui.ShowDeathPanelWithFormattedTime(finalDisplay);
     }
-}
 
 public float GetCurrentMultiplier()
 {

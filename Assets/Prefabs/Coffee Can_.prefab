@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5456471322728761573}
   m_Layer: 0
   m_Name: Coffee Can_
-  m_TagString: TrashObstacle
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

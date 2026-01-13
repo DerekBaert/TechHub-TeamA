@@ -7,7 +7,8 @@ public class StateManager : MonoBehaviour
 {
    public void ReloadCurrentScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1f; // Just to be safe!
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
         public void ChangeSceneByName(string name)
         {

@@ -30,34 +30,41 @@ public class Hander : MonoBehaviour, ISpawnable
     }
 
     void Start()
+{
+    GameObject home = GameObject.FindGameObjectWithTag(homeBaseTag);
+    if (home != null) 
     {
-        // Find the HomeBase safely
-        GameObject home = GameObject.FindGameObjectWithTag(homeBaseTag);
-        if (home != null) 
-        {
-            homeTransform = home.transform;
-            currentDirection = (homeTransform.position - transform.position).normalized;
-        }
-        else 
-        {
-            currentDirection = Vector3.down; // Fallback direction
-        }
+        homeTransform = home.transform;
+        currentDirection = (homeTransform.position - transform.position).normalized;
     }
+
+    // ADD VARIETY: Each piece of trash moves at a slightly different speed
+    // This breaks up clusters!
+    moveSpeed += Random.Range(-1.5f, 2.0f); 
+}
 
     void Update()
     {
         if (Mathf.Approximately(Time.timeScale, 0)) return;
 
-        // 1. Handle Spawn Delay
-        if (!_isActive)
+    // 1. Handle Spawn Delay
+    if (!_isActive)
+    {
+        _spawnTimer -= Time.deltaTime;
+        
+        // OPTIONAL VISUAL: Make them semi-transparent while "waiting"
+        if (_spriteRenderer != null) _spriteRenderer.color = new Color(1,1,1, 0.2f);
+        
+        if (_spawnTimer <= 0f) 
         {
-            _spawnTimer -= Time.deltaTime;
-            if (_spawnTimer <= 0f) _isActive = true;
-            return;
+            _isActive = true;
+            if (_spriteRenderer != null) _spriteRenderer.color = Color.white; // Make solid
         }
+        return; // STOP HERE so they don't move or rotate yet
+    }
 
-        // 2. Movement
-        transform.position += currentDirection * moveSpeed * Time.deltaTime;
+    // 2. Movement (Only happens if _isActive is true)
+    transform.position += currentDirection * moveSpeed * Time.deltaTime;
 
         // 3. Rotation Look-At
         if (currentDirection != Vector3.zero)
