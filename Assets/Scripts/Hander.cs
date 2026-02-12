@@ -9,7 +9,7 @@ public class Hander : MonoBehaviour, ISpawnable
     private bool isOutbound = false;
 
     [Header("Interaction")]
-    [SerializeField] private int maxClicks = 1; 
+    [SerializeField] private int maxClicks = 1;
     private int _currentClicks = 0;
     private bool _isActive = false;
     private float _spawnTimer;
@@ -30,41 +30,41 @@ public class Hander : MonoBehaviour, ISpawnable
     }
 
     void Start()
-{
-    GameObject home = GameObject.FindGameObjectWithTag(homeBaseTag);
-    if (home != null) 
     {
-        homeTransform = home.transform;
-        currentDirection = (homeTransform.position - transform.position).normalized;
-    }
+        GameObject home = GameObject.FindGameObjectWithTag(homeBaseTag);
+        if (home != null)
+        {
+            homeTransform = home.transform;
+            currentDirection = (homeTransform.position - transform.position).normalized;
+        }
 
-    // ADD VARIETY: Each piece of trash moves at a slightly different speed
-    // This breaks up clusters!
-    moveSpeed += Random.Range(-1.5f, 2.0f); 
-}
+        // ADD VARIETY: Each piece of trash moves at a slightly different speed
+        // This breaks up clusters!
+        moveSpeed += Random.Range(-1.5f, 2.0f);
+    }
 
     void Update()
     {
         if (Mathf.Approximately(Time.timeScale, 0)) return;
 
-    // 1. Handle Spawn Delay
-    if (!_isActive)
-    {
-        _spawnTimer -= Time.deltaTime;
-        
-        // OPTIONAL VISUAL: Make them semi-transparent while "waiting"
-        if (_spriteRenderer != null) _spriteRenderer.color = new Color(1,1,1, 0.2f);
-        
-        if (_spawnTimer <= 0f) 
+        // 1. Handle Spawn Delay
+        if (!_isActive)
         {
-            _isActive = true;
-            if (_spriteRenderer != null) _spriteRenderer.color = Color.white; // Make solid
-        }
-        return; // STOP HERE so they don't move or rotate yet
-    }
+            _spawnTimer -= Time.deltaTime;
 
-    // 2. Movement (Only happens if _isActive is true)
-    transform.position += currentDirection * moveSpeed * Time.deltaTime;
+            // OPTIONAL VISUAL: Make them semi-transparent while "waiting"
+            if (_spriteRenderer != null) _spriteRenderer.color = new Color(1, 1, 1, 0.2f);
+
+            if (_spawnTimer <= 0f)
+            {
+                _isActive = true;
+                if (_spriteRenderer != null) _spriteRenderer.color = Color.white; // Make solid
+            }
+            return; // STOP HERE so they don't move or rotate yet
+        }
+
+        // 2. Movement (Only happens if _isActive is true)
+        transform.position += currentDirection * moveSpeed * Time.deltaTime;
 
         // 3. Rotation Look-At
         if (currentDirection != Vector3.zero)
@@ -79,16 +79,16 @@ public class Hander : MonoBehaviour, ISpawnable
     public void ReceiveClick()
     {
         if (!_isActive || isOutbound) return;
-    
-    _currentClicks++;
-    
-    // SAVE TRASH DATA HERE:
-    int total = PlayerPrefs.GetInt("TotalTrash", 0);
-    PlayerPrefs.SetInt("TotalTrash", total + 1); 
-    PlayerPrefs.Save();
-    LevelManager.instance?.AddCombo();
+
+        _currentClicks++;
+
+        // SAVE TRASH DATA HERE:
+        int total = PlayerPrefs.GetInt("TotalTrash", 0);
+        PlayerPrefs.SetInt("TotalTrash", total + 1);
+        PlayerPrefs.Save();
+        LevelManager.instance?.AddCombo();
         if (!_isActive || isOutbound) return;
-        
+
         _currentClicks++;
         LevelManager.instance?.AddCombo();
 
@@ -105,8 +105,10 @@ public class Hander : MonoBehaviour, ISpawnable
     public void SendOutward(float multiplier)
     {
         if (isOutbound) return; // Don't trigger twice
-        
+
         isOutbound = true;
+
+        LevelManager.instance?.OnTrashDeflected();
 
         // CRITICAL FIX: The Null Check to prevent crashes
         if (homeTransform != null)
