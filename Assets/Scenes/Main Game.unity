@@ -7873,7 +7873,7 @@ MonoBehaviour:
   - {fileID: 2019580192}
   currentWave: 1
   timeBetweenWaves: 3
-  baseEnemiesPerWave: 20
+  baseEnemiesPerWave: 25
   spawnRateInWave: 1
 --- !u!4 &1215159760
 Transform:
@@ -10136,6 +10136,8 @@ MonoBehaviour:
   slowMoFactor: 0.05
   slowMoDuration: 0.1
   comboText: {fileID: 813663837}
+  totalTrashDeflected: 0
+  trashPerLevel: 25
 --- !u!4 &1695846058
 Transform:
   m_ObjectHideFlags: 0
